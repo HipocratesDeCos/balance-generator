@@ -174,6 +174,46 @@ function generarPyG(seed) {
   };
 }
 
+function generarHistoriaEmpresa(tamano, balance, pyg) {
+  const { activo, pn, pasivo } = calcularTotales(balance);
+  const ratios = calcularRatios(balance);
+  const endeudamiento = ratios.endeudamiento;
+  const liquidez = ratios.liquidez;
+  const fm = ratios.fm;
+  const ventas = pyg.ventasNetas;
+  const resultado = pyg.resultado;
+
+  let descripcionTamano;
+  if (tamano === "micro") descripcionTamano = "microempresa local";
+  else if (tamano === "pyme") descripcionTamano = "pequeña y mediana empresa (pyme)";
+  else if (tamano === "mediana") descripcionTamano = "empresa mediana consolidada";
+  else descripcionTamano = "gran empresa con presencia relevante en su sector";
+
+  const situacionEndeudamiento =
+    endeudamiento > 2
+      ? "un nivel de endeudamiento elevado que obliga a gestionar con prudencia el riesgo financiero"
+      : "un endeudamiento razonable que combina recursos propios y ajenos de forma equilibrada";
+
+  const situacionLiquidez =
+    liquidez < 1
+      ? "una liquidez ajustada, per sota de la unitat, que obliga a vigilar el fons de maniobra i els terminis de cobrament i pagament"
+      : "una liquidez adequada, amb un fons de maniobra positiu que permet atendre les obligacions a curt termini amb certa comoditat";
+
+  const texto =
+    `L'empresa simulada és una ${descripcionTamano} que opera en el mercat nacional, amb un actiu total proper a ${formatearNumero(activo)} € i un patrimoni net al voltant de ${formatearNumero(pn)} €. ` +
+    `Durant l'exercici analitzat, la xifra de negoci se situa entorn de ${formatearNumero(ventas)} €, amb un resultat de l'exercici de ${formatearNumero(resultado)} €, ` +
+    `fet que indica ${resultado >= 0 ? "una capacitat de generar beneficis" : "dificultats per assolir la rendibilitat desitjada"}. ` +
+    `L'estructura financera mostra ${situacionEndeudamiento}, amb una ràtio d'endeutament (Pasivo/Patrimonio neto) pròxima a ${endeudamiento.toFixed(2)}. ` +
+    `Pel que fa a la posició a curt termini, l'empresa presenta ${situacionLiquidez} (FM ≈ ${formatearNumero(fm)} €). ` +
+    `A partir d'aquesta situació econòmico-financera, la direcció està revisant el seu model de negoci mitjançant una anàlisi DAFO, ` +
+    `el càlcul del punt mort o llindar de rendibilitat i l'estudi de la TIR dels principals projectes d'inversió, tal com es treballa al temari de funcionament de l'empresa i disseny de models de negoci. ` +
+    `Al mateix temps, l'empresa vol reforçar la seva responsabilitat social corporativa (RSC): està elaborant un codi de conducta intern i un balanç social que reculli les actuacions en matèria social i mediambiental, ` +
+    `alineant-se amb els objectius de desenvolupament sostenible relacionats amb l'energia, la innovació i el consum responsable. ` +
+    `Tot plegat ha de permetre mantenir-se competitiva en un entorn globalitzat, combinant una estructura financera sòlida amb una proposta de valor diferenciada i sostenible.`;
+
+  return texto;
+}
+
 function sumar(lista) {
   return lista.reduce((acc, c) => acc + c.amount, 0);
 }
@@ -314,6 +354,7 @@ function activarTabs() {
 function inicializar() {
   const btnBalance = document.getElementById("btn-generar");
   const btnPyG = document.getElementById("btn-generar-pyg");
+  const btnHistoria = document.getElementById("btn-generar-historia");
   const resultado = document.getElementById("resultado");
   const tamanoSelect = document.getElementById("tamano");
   const semillaInput = document.getElementById("semilla");
@@ -357,6 +398,46 @@ function inicializar() {
 
     renderTablaSimplePyG("tabla-pyg-ing", pyg.ingresos);
     renderTablaSimplePyG("tabla-pyg-gas", pyg.gastos);
+
+    resultado.classList.remove("hidden");
+  });
+
+  btnHistoria.addEventListener("click", () => {
+    const tamano = tamanoSelect.value;
+    const seed = semillaInput.value ? Number(semillaInput.value) : undefined;
+
+    const balance = generarBalance(tamano, seed);
+    const valid = validarBalance(balance);
+    const ratios = calcularRatios(balance);
+    const pyg = generarPyG(seed);
+
+    mostrarAlertas(valid);
+
+    document.getElementById("tot-activo").textContent = formatearNumero(valid.activo);
+    document.getElementById("tot-pn").textContent = formatearNumero(valid.pn);
+    document.getElementById("tot-pasivo").textContent = formatearNumero(valid.pasivo);
+    document.getElementById("tot-pn-pasivo").textContent = formatearNumero(valid.pn + valid.pasivo);
+
+    document.getElementById("ratio-fm").textContent = formatearNumero(ratios.fm);
+    document.getElementById("ratio-liquidez").textContent = formatearNumero(ratios.liquidez);
+    document.getElementById("ratio-solvencia").textContent = formatearNumero(ratios.solvencia);
+    document.getElementById("ratio-endeudamiento").textContent = formatearNumero(ratios.endeudamiento);
+
+    renderTablaAgrupada("tabla-anc", balance.activo_no_corriente);
+    renderTablaAgrupada("tabla-ac", balance.activo_corriente);
+    renderTablaAgrupada("tabla-pn", balance.patrimonio_neto);
+    renderTablaAgrupada("tabla-pnc", balance.pasivo_no_corriente);
+    renderTablaAgrupada("tabla-pc", balance.pasivo_corriente);
+
+    document.getElementById("pyg-ventas").textContent = formatearNumero(pyg.ventasNetas);
+    document.getElementById("pyg-gastos").textContent = formatearNumero(pyg.totalGastos);
+    document.getElementById("pyg-resultado").textContent = formatearNumero(pyg.resultado);
+
+    renderTablaSimplePyG("tabla-pyg-ing", pyg.ingresos);
+    renderTablaSimplePyG("tabla-pyg-gas", pyg.gastos);
+
+    const historia = generarHistoriaEmpresa(tamano, balance, pyg);
+    document.getElementById("historia-empresa").textContent = historia;
 
     resultado.classList.remove("hidden");
   });
