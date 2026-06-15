@@ -31,8 +31,9 @@
         <input id="semilla" type="number" min="0" placeholder="Ej: 42" />
       </div>
       <div class="form-row buttons-row">
-        <button id="btn-generar" class="btn-primary">Generar balance de situación</button>
-        <button id="btn-generar-pyg" class="btn-secondary">Balance de pérdidas y ganancias</button>
+        <button id="btn-generar" class="btn-primary">Balance de situación</button>
+        <button id="btn-generar-pyg" class="btn-secondary">Pérdidas y ganancias</button>
+        <button id="btn-generar-historia" class="btn-secondary">Historia de la empresa</button>
       </div>
       <p class="helper-text">El generador respeta la ecuación patrimonial: Activo = Patrimonio neto + Pasivo.</p>
     </section>
@@ -108,6 +109,11 @@
           <table class="tabla-cuentas" id="tabla-pyg-gas"></table>
         </div>
       </div>
+
+      <hr />
+
+      <h2>Historia de la empresa</h2>
+      <div id="historia-empresa" class="historia-empresa"></div>
 
       <p class="note">
         Esta web es una versión estática del generador. El backend en Python/Streamlit con la misma lógica
