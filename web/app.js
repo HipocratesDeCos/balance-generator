@@ -1,50 +1,50 @@
 // Configuración de cuentas y rangos similar a cuentas.json de Python
 const CUENTAS = {
   activo_no_corriente: [
-    { grupo: "Inmovilizado intangible", nombre: "Aplicaciones informáticas", peso_min: 0.10, peso_max: 0.40 },
-    { grupo: "Inmovilizado intangible", nombre: "Propiedad industrial", peso_min: 0.02, peso_max: 0.15 },
+    { grupo: "Immobilitzat intangible", nombre: "Aplicacions informàtiques", peso_min: 0.10, peso_max: 0.40 },
+    { grupo: "Immobilitzat intangible", nombre: "Propietat industrial", peso_min: 0.02, peso_max: 0.15 },
 
-    { grupo: "Inmovilizado material", nombre: "Construcciones", peso_min: 0.05, peso_max: 0.25 },
-    { grupo: "Inmovilizado material", nombre: "Elementos de transporte", peso_min: 0.02, peso_max: 0.15 },
-    { grupo: "Inmovilizado material", nombre: "Mobiliario y enseres", peso_min: 0.02, peso_max: 0.15 },
+    { grupo: "Immobilitzat material", nombre: "Construccions", peso_min: 0.05, peso_max: 0.25 },
+    { grupo: "Immobilitzat material", nombre: "Elements de transport", peso_min: 0.02, peso_max: 0.15 },
+    { grupo: "Immobilitzat material", nombre: "Mobles i estris", peso_min: 0.02, peso_max: 0.15 },
 
-    { grupo: "Inversiones financieras a largo plazo", nombre: "Participaciones en empresas del grupo y asociadas", peso_min: 0.0, peso_max: 0.10 },
-    { grupo: "Inversiones financieras a largo plazo", nombre: "Otros valores representativos de deuda a largo plazo", peso_min: 0.0, peso_max: 0.08 },
+    { grupo: "Inversions financeres a llarg termini", nombre: "Participacions en empreses del grup i associades", peso_min: 0.0, peso_max: 0.10 },
+    { grupo: "Inversions financeres a llarg termini", nombre: "Altres valors representatius de deute a llarg termini", peso_min: 0.0, peso_max: 0.08 },
   ],
   activo_corriente: [
-    { grupo: "Existencias", nombre: "Existencias de mercaderías", peso_min: 0.05, peso_max: 0.25 },
-    { grupo: "Existencias", nombre: "Existencias de productos terminados", peso_min: 0.0, peso_max: 0.10 },
+    { grupo: "Existències", nombre: "Existències de mercaderies", peso_min: 0.05, peso_max: 0.25 },
+    { grupo: "Existències", nombre: "Existències de productes acabats", peso_min: 0.0, peso_max: 0.10 },
 
-    { grupo: "Deudores comerciales", nombre: "Clientes", peso_min: 0.05, peso_max: 0.25 },
-    { grupo: "Deudores comerciales", nombre: "Deudores varios", peso_min: 0.0, peso_max: 0.10 },
-    { grupo: "Deudores comerciales", nombre: "Hacienda Pública deudora", peso_min: 0.0, peso_max: 0.08 },
+    { grupo: "Deutors comercials", nombre: "Clients", peso_min: 0.05, peso_max: 0.25 },
+    { grupo: "Deutors comercials", nombre: "Deutors diversos", peso_min: 0.0, peso_max: 0.10 },
+    { grupo: "Deutors comercials", nombre: "Hisenda Pública deutora", peso_min: 0.0, peso_max: 0.08 },
 
-    { grupo: "Inversiones financieras a corto plazo", nombre: "Inversiones financieras a corto plazo", peso_min: 0.0, peso_max: 0.20 },
+    { grupo: "Inversions financeres a curt termini", nombre: "Inversions financeres a curt termini", peso_min: 0.0, peso_max: 0.20 },
 
-    { grupo: "Efectivo y otros activos líquidos equivalentes", nombre: "Tesorería (caja y bancos)", peso_min: 0.01, peso_max: 0.25 },
+    { grupo: "Efectiu i altres actius líquids", nombre: "Tresoreria (caixa i bancs)", peso_min: 0.01, peso_max: 0.25 },
   ],
   patrimonio_neto: [
-    { grupo: "Fondos propios", nombre: "Capital social", peso_min: 0.20, peso_max: 0.60 },
-    { grupo: "Fondos propios", nombre: "Prima de emisión y aportaciones de socios", peso_min: 0.0, peso_max: 0.05 },
-    { grupo: "Fondos propios", nombre: "Reservas", peso_min: 0.0, peso_max: 0.30 },
-    { grupo: "Fondos propios", nombre: "Resultados de ejercicios anteriores", peso_min: 0.0, peso_max: 0.10 },
-    { grupo: "Fondos propios", nombre: "Resultado del ejercicio", peso_min: 0.0, peso_max: 0.08 },
+    { grupo: "Fons propis", nombre: "Capital social", peso_min: 0.20, peso_max: 0.60 },
+    { grupo: "Fons propis", nombre: "Prima d'emissió i aportacions de socis", peso_min: 0.0, peso_max: 0.05 },
+    { grupo: "Fons propis", nombre: "Reserves", peso_min: 0.0, peso_max: 0.30 },
+    { grupo: "Fons propis", nombre: "Resultats d'exercicis anteriors", peso_min: 0.0, peso_max: 0.10 },
+    { grupo: "Fons propis", nombre: "Resultat de l'exercici", peso_min: 0.0, peso_max: 0.08 },
   ],
   pasivo_no_corriente: [
-    { grupo: "Deudas a largo plazo", nombre: "Deudas con entidades de crédito a largo plazo", peso_min: 0.05, peso_max: 0.30 },
-    { grupo: "Deudas a largo plazo", nombre: "Deudas con empresas del grupo y asociadas a largo plazo", peso_min: 0.0, peso_max: 0.10 },
-    { grupo: "Deudas a largo plazo", nombre: "Otras deudas a largo plazo", peso_min: 0.0, peso_max: 0.15 },
-    { grupo: "Provisiones a largo plazo", nombre: "Provisiones a largo plazo", peso_min: 0.0, peso_max: 0.10 },
+    { grupo: "Deutes a llarg termini", nombre: "Deutes amb entitats de crèdit a llarg termini", peso_min: 0.05, peso_max: 0.30 },
+    { grupo: "Deutes a llarg termini", nombre: "Deutes amb empreses del grup i associades a llarg termini", peso_min: 0.0, peso_max: 0.10 },
+    { grupo: "Deutes a llarg termini", nombre: "Altres deutes a llarg termini", peso_min: 0.0, peso_max: 0.15 },
+    { grupo: "Provisions a llarg termini", nombre: "Provisions a llarg termini", peso_min: 0.0, peso_max: 0.10 },
   ],
   pasivo_corriente: [
-    { grupo: "Acreedores comerciales", nombre: "Proveedores", peso_min: 0.05, peso_max: 0.25 },
-    { grupo: "Acreedores comerciales", nombre: "Acreedores varios", peso_min: 0.0, peso_max: 0.15 },
+    { grupo: "Creditors comercials", nombre: "Proveïdors", peso_min: 0.05, peso_max: 0.25 },
+    { grupo: "Creditors comercials", nombre: "Creditors diversos", peso_min: 0.0, peso_max: 0.15 },
 
-    { grupo: "Administraciones Públicas", nombre: "Hacienda Pública acreedora", peso_min: 0.0, peso_max: 0.10 },
-    { grupo: "Administraciones Públicas", nombre: "Organismos de la Seguridad Social acreedores", peso_min: 0.0, peso_max: 0.08 },
+    { grupo: "Administracions públiques", nombre: "Hisenda Pública creditora", peso_min: 0.0, peso_max: 0.10 },
+    { grupo: "Administracions públiques", nombre: "Organismes de la Seguretat Social creditors", peso_min: 0.0, peso_max: 0.08 },
 
-    { grupo: "Deudas financieras a corto plazo", nombre: "Deudas con entidades de crédito a corto plazo", peso_min: 0.02, peso_max: 0.25 },
-    { grupo: "Otras deudas a corto plazo", nombre: "Otras deudas a corto plazo", peso_min: 0.0, peso_max: 0.15 },
+    { grupo: "Deutes financers a curt termini", nombre: "Deutes amb entitats de crèdit a curt termini", peso_min: 0.02, peso_max: 0.25 },
+    { grupo: "Altres deutes a curt termini", nombre: "Altres deutes a curt termini", peso_min: 0.0, peso_max: 0.15 },
   ],
 };
 
@@ -57,19 +57,19 @@ const RANGOS_ACTIVO = {
 
 // Configuración simplificada de la cuenta de pérdidas y ganancias (modelo abreviado)
 const PYG_INGRESOS = [
-  { grupo: "Explotación", nombre: "Importe neto de la cifra de negocios", peso_min: 0.60, peso_max: 0.85 },
-  { grupo: "Explotación", nombre: "Otros ingresos de explotación", peso_min: 0.00, peso_max: 0.10 },
-  { grupo: "Financieros", nombre: "Ingresos financieros", peso_min: 0.00, peso_max: 0.05 },
-  { grupo: "Extraordinarios", nombre: "Ingresos extraordinarios", peso_min: 0.00, peso_max: 0.05 },
+  { grupo: "Explotació", nombre: "Import net de la xifra de negocis", peso_min: 0.60, peso_max: 0.85 },
+  { grupo: "Explotació", nombre: "Altres ingressos d'explotació", peso_min: 0.00, peso_max: 0.10 },
+  { grupo: "Financers", nombre: "Ingressos financers", peso_min: 0.00, peso_max: 0.05 },
+  { grupo: "Extraordinaris", nombre: "Ingressos extraordinaris", peso_min: 0.00, peso_max: 0.05 },
 ];
 
 const PYG_GASTOS = [
-  { grupo: "Consumos y personal", nombre: "Consumos de explotación", peso_min: 0.30, peso_max: 0.55 },
-  { grupo: "Consumos y personal", nombre: "Gastos de personal", peso_min: 0.10, peso_max: 0.25 },
-  { grupo: "Estructura", nombre: "Otros gastos de explotación", peso_min: 0.05, peso_max: 0.15 },
-  { grupo: "Amortizaciones y provisiones", nombre: "Amortizaciones y provisiones", peso_min: 0.02, peso_max: 0.10 },
-  { grupo: "Financieros", nombre: "Gastos financieros", peso_min: 0.00, peso_max: 0.06 },
-  { grupo: "Extraordinarios", nombre: "Gastos e impuestos extraordinarios", peso_min: 0.00, peso_max: 0.04 },
+  { grupo: "Consums i personal", nombre: "Consums d'explotació", peso_min: 0.30, peso_max: 0.55 },
+  { grupo: "Consums i personal", nombre: "Despeses de personal", peso_min: 0.10, peso_max: 0.25 },
+  { grupo: "Estructura", nombre: "Altres despeses d'explotació", peso_min: 0.05, peso_max: 0.15 },
+  { grupo: "Amortitzacions i provisions", nombre: "Amortitzacions i provisions", peso_min: 0.02, peso_max: 0.10 },
+  { grupo: "Financers", nombre: "Despeses financeres", peso_min: 0.00, peso_max: 0.06 },
+  { grupo: "Extraordinaris", nombre: "Despeses i impostos extraordinaris", peso_min: 0.00, peso_max: 0.04 },
 ];
 
 // Utilidad para semillas reproducibles
@@ -150,15 +150,12 @@ function generarBalance(tamano, seed) {
 function generarPyG(seed) {
   const rand = crearRandom(seed);
 
-  // Tomamos una escala de ventas netas razonable (p.ej. 70.000 - 2.000.000 €)
   const ventasNetas = rand() * (2000000 - 70000) + 70000;
 
-  // Ingresos totales algo superiores o iguales a ventas netas
   const totalIngresos = ventasNetas * (1 + rand() * 0.2);
   const ingresos = distribuirPorPesos(totalIngresos, PYG_INGRESOS, rand);
 
-  // Gastos totales en torno al 70-95% de los ingresos (resultado positivo o ajustado)
-  const margen = 0.05 + rand() * 0.25; // resultado entre 5% y 30% de ventas aproximadamente
+  const margen = 0.05 + rand() * 0.25;
   const totalGastos = totalIngresos * (1 - margen);
   const gastos = distribuirPorPesos(totalGastos, PYG_GASTOS, rand);
 
@@ -185,33 +182,41 @@ function generarHistoriaEmpresa(tamano, balance, pyg) {
 
   let descripcionTamano;
   if (tamano === "micro") descripcionTamano = "microempresa local";
-  else if (tamano === "pyme") descripcionTamano = "pequeña y mediana empresa (pyme)";
-  else if (tamano === "mediana") descripcionTamano = "empresa mediana consolidada";
-  else descripcionTamano = "gran empresa con presencia relevante en su sector";
+  else if (tamano === "pyme") descripcionTamano = "petita i mitjana empresa (pime)";
+  else if (tamano === "mediana") descripcionTamano = "empresa mitjana consolidada";
+  else descripcionTamano = "gran empresa amb presència rellevant en el seu sector";
 
   const situacionEndeudamiento =
     endeudamiento > 2
-      ? "un nivel de endeudamiento elevado que obliga a gestionar con prudencia el riesgo financiero"
-      : "un endeudamiento razonable que combina recursos propios y ajenos de forma equilibrada";
+      ? "un nivell d'endeutament elevat que obliga a gestionar amb prudència el risc financer"
+      : "un endeutament raonable que combina recursos propis i aliens de manera equilibrada";
 
   const situacionLiquidez =
     liquidez < 1
-      ? "una liquidez ajustada, per sota de la unitat, que obliga a vigilar el fons de maniobra i els terminis de cobrament i pagament"
-      : "una liquidez adequada, amb un fons de maniobra positiu que permet atendre les obligacions a curt termini amb certa comoditat";
+      ? "una liquiditat ajustada, per sota de la unitat, que obliga a vigilar el fons de maniobra i els terminis de cobrament i pagament"
+      : "una liquiditat adequada, amb un fons de maniobra positiu que permet atendre les obligacions a curt termini amb certa comoditat";
 
-  const texto =
+  const par1 =
     `L'empresa simulada és una ${descripcionTamano} que opera en el mercat nacional, amb un actiu total proper a ${formatearNumero(activo)} € i un patrimoni net al voltant de ${formatearNumero(pn)} €. ` +
     `Durant l'exercici analitzat, la xifra de negoci se situa entorn de ${formatearNumero(ventas)} €, amb un resultat de l'exercici de ${formatearNumero(resultado)} €, ` +
-    `fet que indica ${resultado >= 0 ? "una capacitat de generar beneficis" : "dificultats per assolir la rendibilitat desitjada"}. ` +
-    `L'estructura financera mostra ${situacionEndeudamiento}, amb una ràtio d'endeutament (Pasivo/Patrimonio neto) pròxima a ${endeudamiento.toFixed(2)}. ` +
-    `Pel que fa a la posició a curt termini, l'empresa presenta ${situacionLiquidez} (FM ≈ ${formatearNumero(fm)} €). ` +
-    `A partir d'aquesta situació econòmico-financera, la direcció està revisant el seu model de negoci mitjançant una anàlisi DAFO, ` +
-    `el càlcul del punt mort o llindar de rendibilitat i l'estudi de la TIR dels principals projectes d'inversió, tal com es treballa al temari de funcionament de l'empresa i disseny de models de negoci. ` +
-    `Al mateix temps, l'empresa vol reforçar la seva responsabilitat social corporativa (RSC): està elaborant un codi de conducta intern i un balanç social que reculli les actuacions en matèria social i mediambiental, ` +
-    `alineant-se amb els objectius de desenvolupament sostenible relacionats amb l'energia, la innovació i el consum responsable. ` +
-    `Tot plegat ha de permetre mantenir-se competitiva en un entorn globalitzat, combinant una estructura financera sòlida amb una proposta de valor diferenciada i sostenible.`;
+    `fet que indica ${resultado >= 0 ? "una capacitat de generar beneficis" : "dificultats per assolir la rendibilitat desitjada"}.`;
 
-  return texto;
+  const par2 =
+    `L'estructura financera mostra ${situacionEndeudamiento}, amb una ràtio d'endeutament (Passiu/Patrimoni net) pròxima a ${endeudamiento.toFixed(2)}. ` +
+    `Pel que fa a la posició a curt termini, l'empresa presenta ${situacionLiquidez} (fons de maniobra aproximat de ${formatearNumero(fm)} €).`;
+
+  const par3 =
+    `A partir d'aquesta situació econòmico-financera, la direcció està revisant el seu model de negoci mitjançant una anàlisi DAFO, ` +
+    `el càlcul del punt mort o llindar de rendibilitat i l'estudi de la TIR dels principals projectes d'inversió, tal com es treballa al temari de funcionament de l'empresa i disseny de models de negoci.`;
+
+  const par4 =
+    `Al mateix temps, l'empresa vol reforçar la seva responsabilitat social corporativa (RSC): està elaborant un codi de conducta intern i un balanç social que reculli les actuacions en matèria social i mediambiental, ` +
+    `alineant-se amb els objectius de desenvolupament sostenible relacionats amb l'energia assequible, la innovació i el consum responsable.`;
+
+  const par5 =
+    `Tot plegat ha de permetre mantenir-se competitiva en un entorn globalitzat, combinant una estructura financera sòlida amb una proposta de valor diferenciada, sostenible i orientada al benestar de la clientela i de la societat en el seu conjunt.`;
+
+  return [par1, par2, par3, par4, par5];
 }
 
 function sumar(lista) {
@@ -234,16 +239,16 @@ function validarBalance(balance, tolerancia = 0.5) {
   const errores = [];
 
   if (Math.abs(activo - (pn + pasivo)) > tolerancia) {
-    errores.push(`El balance no está cuadrado: activo=${activo.toFixed(2)} vs PN+Pasivo=${(pn + pasivo).toFixed(2)}`);
+    errores.push(`El balanç no està quadrat: actiu=${activo.toFixed(2)} vs PN+Passiu=${(pn + pasivo).toFixed(2)}`);
   }
   if (activo <= 0) {
-    errores.push("El activo total debe ser positivo.");
+    errores.push("L'actiu total ha de ser positiu.");
   }
   if (pn < 0) {
-    errores.push("El patrimonio neto no puede ser negativo en el modo estándar.");
+    errores.push("El patrimoni net no pot ser negatiu en el mode estàndard.");
   }
   if (pasivo > 3 * activo) {
-    errores.push("El pasivo total es desproporcionado respecto al activo (posible incoherencia económica).");
+    errores.push("El passiu total és desproporcionat respecte a l'actiu (possible incoherència econòmica).");
   }
 
   return { ok: errores.length === 0, errores, activo, pn, pasivo };
@@ -264,22 +269,21 @@ function calcularRatios(balance) {
 
 function formatearNumero(n) {
   if (!isFinite(n)) return "∞";
-  return n.toLocaleString("es-ES", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  return n.toLocaleString("ca-ES", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
 function renderTablaAgrupada(elementId, cuentas) {
   const el = document.getElementById(elementId);
   if (!el) return;
 
-  // Agrupar por grupo (submasa)
   const grupos = {};
   cuentas.forEach((c) => {
-    const g = c.grupo || "Otros";
+    const g = c.grupo || "Altres";
     if (!grupos[g]) grupos[g] = [];
     grupos[g].push(c);
   });
 
-  let html = "<thead><tr><th>Submasa / Cuenta</th><th class=\"importe\">Importe (€)</th></tr></thead><tbody>";
+  let html = "<thead><tr><th>Submassa / Compte</th><th class=\"importe\">Import (€)</th></tr></thead><tbody>";
   Object.keys(grupos).forEach((grupo) => {
     const partidas = grupos[grupo];
     const subtotal = sumar(partidas);
@@ -290,7 +294,7 @@ function renderTablaAgrupada(elementId, cuentas) {
   });
 
   const total = sumar(cuentas);
-  html += `<tr><td><strong>Total sección</strong></td><td class="importe"><strong>${formatearNumero(total)}</strong></td></tr>`;
+  html += `<tr><td><strong>Total secció</strong></td><td class="importe"><strong>${formatearNumero(total)}</strong></td></tr>`;
   html += "</tbody>";
   el.innerHTML = html;
 }
@@ -301,12 +305,12 @@ function renderTablaSimplePyG(elementId, partidas) {
 
   const grupos = {};
   partidas.forEach((p) => {
-    const g = p.grupo || "Otros";
+    const g = p.grupo || "Altres";
     if (!grupos[g]) grupos[g] = [];
     grupos[g].push(p);
   });
 
-  let html = "<thead><tr><th>Grupo / Partida</th><th class=\"importe\">Importe (€)</th></tr></thead><tbody>";
+  let html = "<thead><tr><th>Grup / Partida</th><th class=\"importe\">Import (€)</th></tr></thead><tbody>";
   Object.keys(grupos).forEach((grupo) => {
     const lista = grupos[grupo];
     const subtotal = sumar(lista);
@@ -327,9 +331,9 @@ function mostrarAlertas(validacion) {
   if (!cont) return;
   cont.innerHTML = "";
   if (validacion.ok) {
-    cont.innerHTML = '<div class="alert ok">Balance válido: la ecuación patrimonial se cumple (diferencias solo por redondeo).</div>';
+    cont.innerHTML = '<div class="alert ok">Balanç vàlid: l\'equació patrimonial es compleix (diferències només per arrodoniment).</div>';
   } else {
-    let html = '<div class="alert error"><strong>Balance NO válido:</strong><ul>';
+    let html = '<div class="alert error"><strong>Balanç NO vàlid:</strong><ul>';
     validacion.errores.forEach((e) => {
       html += `<li>${e}</li>`;
     });
@@ -369,6 +373,13 @@ function inicializar() {
 
     mostrarAlertas(valid);
 
+    document.getElementById("historia-empresa").innerHTML = "";
+    document.getElementById("pyg-ventas").textContent = "";
+    document.getElementById("pyg-gastos").textContent = "";
+    document.getElementById("pyg-resultado").textContent = "";
+    document.getElementById("tabla-pyg-ing").innerHTML = "";
+    document.getElementById("tabla-pyg-gas").innerHTML = "";
+
     document.getElementById("tot-activo").textContent = formatearNumero(valid.activo);
     document.getElementById("tot-pn").textContent = formatearNumero(valid.pn);
     document.getElementById("tot-pasivo").textContent = formatearNumero(valid.pasivo);
@@ -392,6 +403,22 @@ function inicializar() {
     const seed = semillaInput.value ? Number(semillaInput.value) : undefined;
     const pyg = generarPyG(seed);
 
+    document.getElementById("historia-empresa").innerHTML = "";
+    document.getElementById("alertas").innerHTML = "";
+    document.getElementById("tot-activo").textContent = "";
+    document.getElementById("tot-pn").textContent = "";
+    document.getElementById("tot-pasivo").textContent = "";
+    document.getElementById("tot-pn-pasivo").textContent = "";
+    document.getElementById("ratio-fm").textContent = "";
+    document.getElementById("ratio-liquidez").textContent = "";
+    document.getElementById("ratio-solvencia").textContent = "";
+    document.getElementById("ratio-endeudamiento").textContent = "";
+    document.getElementById("tabla-anc").innerHTML = "";
+    document.getElementById("tabla-ac").innerHTML = "";
+    document.getElementById("tabla-pn").innerHTML = "";
+    document.getElementById("tabla-pnc").innerHTML = "";
+    document.getElementById("tabla-pc").innerHTML = "";
+
     document.getElementById("pyg-ventas").textContent = formatearNumero(pyg.ventasNetas);
     document.getElementById("pyg-gastos").textContent = formatearNumero(pyg.totalGastos);
     document.getElementById("pyg-resultado").textContent = formatearNumero(pyg.resultado);
@@ -411,6 +438,12 @@ function inicializar() {
     const ratios = calcularRatios(balance);
     const pyg = generarPyG(seed);
 
+    document.getElementById("pyg-ventas").textContent = "";
+    document.getElementById("pyg-gastos").textContent = "";
+    document.getElementById("pyg-resultado").textContent = "";
+    document.getElementById("tabla-pyg-ing").innerHTML = "";
+    document.getElementById("tabla-pyg-gas").innerHTML = "";
+
     mostrarAlertas(valid);
 
     document.getElementById("tot-activo").textContent = formatearNumero(valid.activo);
@@ -429,15 +462,14 @@ function inicializar() {
     renderTablaAgrupada("tabla-pnc", balance.pasivo_no_corriente);
     renderTablaAgrupada("tabla-pc", balance.pasivo_corriente);
 
-    document.getElementById("pyg-ventas").textContent = formatearNumero(pyg.ventasNetas);
-    document.getElementById("pyg-gastos").textContent = formatearNumero(pyg.totalGastos);
-    document.getElementById("pyg-resultado").textContent = formatearNumero(pyg.resultado);
-
-    renderTablaSimplePyG("tabla-pyg-ing", pyg.ingresos);
-    renderTablaSimplePyG("tabla-pyg-gas", pyg.gastos);
-
-    const historia = generarHistoriaEmpresa(tamano, balance, pyg);
-    document.getElementById("historia-empresa").textContent = historia;
+    const parrafos = generarHistoriaEmpresa(tamano, balance, pyg);
+    const contHistoria = document.getElementById("historia-empresa");
+    contHistoria.innerHTML = "";
+    parrafos.forEach((p) => {
+      const elP = document.createElement("p");
+      elP.textContent = p;
+      contHistoria.appendChild(elP);
+    });
 
     resultado.classList.remove("hidden");
   });
