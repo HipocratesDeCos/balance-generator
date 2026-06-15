@@ -30,7 +30,10 @@
         <label for="semilla">Semilla (opcional, para repetir el mismo ejercicio)</label>
         <input id="semilla" type="number" min="0" placeholder="Ej: 42" />
       </div>
-      <button id="btn-generar" class="btn-primary">Generar balance</button>
+      <div class="form-row buttons-row">
+        <button id="btn-generar" class="btn-primary">Generar balance de situación</button>
+        <button id="btn-generar-pyg" class="btn-secondary">Balance de pérdidas y ganancias</button>
+      </div>
       <p class="helper-text">El generador respeta la ecuación patrimonial: Activo = Patrimonio neto + Pasivo.</p>
     </section>
 
@@ -79,6 +82,31 @@
         <table class="tabla-cuentas" id="tabla-pnc"></table>
         <h3>Pasivo corriente</h3>
         <table class="tabla-cuentas" id="tabla-pc"></table>
+      </div>
+
+      <hr />
+
+      <h2>Cuenta de pérdidas y ganancias (modelo abreviado)</h2>
+      <div class="totales-grid">
+        <div class="total-box">
+          <h3>Resumen PyG</h3>
+          <ul>
+            <li><strong>Importe neto de la cifra de negocios:</strong> <span id="pyg-ventas"></span> €</li>
+            <li><strong>Total gastos:</strong> <span id="pyg-gastos"></span> €</li>
+            <li><strong>Resultado del ejercicio:</strong> <span id="pyg-resultado"></span> €</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pyg-grid">
+        <div>
+          <h3>Ingresos</h3>
+          <table class="tabla-cuentas" id="tabla-pyg-ing"></table>
+        </div>
+        <div>
+          <h3>Gastos</h3>
+          <table class="tabla-cuentas" id="tabla-pyg-gas"></table>
+        </div>
       </div>
 
       <p class="note">
