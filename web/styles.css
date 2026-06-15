@@ -140,6 +140,27 @@ input[type="number"] {
   display: none;
 }
 
+.resultat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+}
+
+.resultat-bloc h3 {
+  margin-top: 0;
+}
+
+.historia-empresa {
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.historia-empresa p {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+
 .totales-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -262,6 +283,12 @@ input[type="number"] {
 
 .footer a {
   color: var(--primary);
+}
+
+@media (max-width: 900px) {
+  .resultat-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 640px) {
