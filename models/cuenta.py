@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Literal
+from typing import Literal, Optional
 
 
 SeccionTipo = Literal[
@@ -17,8 +17,12 @@ class Cuenta:
 
     amount expresa el saldo en euros (>= 0).
     section indica el bloque principal del balance según PGC.
+    grupo (opcional) permite agrupar cuentas en submasas (por ejemplo,
+    "Inmovilizado intangible", "Inmovilizado material", etc.),
+    manteniendo la suma de partidas = importe de la submasa.
     """
 
     nombre: str
     section: SeccionTipo
     amount: float
+    grupo: Optional[str] = None
