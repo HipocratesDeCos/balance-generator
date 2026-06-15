@@ -1,40 +1,48 @@
 {
   "activo_no_corriente": [
-    {"nombre": "Inmovilizado intangible (patentes, licencias, aplicaciones informáticas)", "peso_min": 0.02, "peso_max": 0.08},
-    {"nombre": "Inmovilizado material (terrenos y construcciones)", "peso_min": 0.05, "peso_max": 0.20},
-    {"nombre": "Inmovilizado material (instalaciones técnicas y maquinaria)", "peso_min": 0.05, "peso_max": 0.25},
-    {"nombre": "Inmovilizado material (mobiliario y equipos informáticos)", "peso_min": 0.02, "peso_max": 0.10},
-    {"nombre": "Inversiones financieras a largo plazo (participaciones)", "peso_min": 0.00, "peso_max": 0.08},
-    {"nombre": "Inversiones financieras a largo plazo (valores representativos de deuda)", "peso_min": 0.00, "peso_max": 0.05}
+    {"grupo": "Inmovilizado intangible", "nombre": "Aplicaciones informáticas", "peso_min": 0.10, "peso_max": 0.40},
+    {"grupo": "Inmovilizado intangible", "nombre": "Propiedad industrial", "peso_min": 0.02, "peso_max": 0.15},
+
+    {"grupo": "Inmovilizado material", "nombre": "Construcciones", "peso_min": 0.05, "peso_max": 0.25},
+    {"grupo": "Inmovilizado material", "nombre": "Elementos de transporte", "peso_min": 0.02, "peso_max": 0.15},
+    {"grupo": "Inmovilizado material", "nombre": "Mobiliario y enseres", "peso_min": 0.02, "peso_max": 0.15},
+
+    {"grupo": "Inversiones financieras a largo plazo", "nombre": "Participaciones en empresas del grupo y asociadas", "peso_min": 0.00, "peso_max": 0.10},
+    {"grupo": "Inversiones financieras a largo plazo", "nombre": "Otros valores representativos de deuda a largo plazo", "peso_min": 0.00, "peso_max": 0.08}
   ],
   "activo_corriente": [
-    {"nombre": "Existencias de mercaderías", "peso_min": 0.05, "peso_max": 0.25},
-    {"nombre": "Existencias de productos terminados", "peso_min": 0.00, "peso_max": 0.10},
-    {"nombre": "Clientes", "peso_min": 0.05, "peso_max": 0.25},
-    {"nombre": "Deudores varios", "peso_min": 0.00, "peso_max": 0.10},
-    {"nombre": "Hacienda Pública deudora", "peso_min": 0.00, "peso_max": 0.08},
-    {"nombre": "Inversiones financieras a corto plazo", "peso_min": 0.00, "peso_max": 0.20},
-    {"nombre": "Tesorería (caja y bancos)", "peso_min": 0.02, "peso_max": 0.25}
+    {"grupo": "Existencias", "nombre": "Existencias de mercaderías", "peso_min": 0.05, "peso_max": 0.25},
+    {"grupo": "Existencias", "nombre": "Existencias de productos terminados", "peso_min": 0.00, "peso_max": 0.10},
+
+    {"grupo": "Realizable", "nombre": "Clientes", "peso_min": 0.05, "peso_max": 0.25},
+    {"grupo": "Realizable", "nombre": "Deudores varios", "peso_min": 0.00, "peso_max": 0.10},
+    {"grupo": "Realizable", "nombre": "Hacienda Pública deudora", "peso_min": 0.00, "peso_max": 0.08},
+
+    {"grupo": "Inversiones financieras a corto plazo", "nombre": "Inversiones financieras a corto plazo", "peso_min": 0.00, "peso_max": 0.20},
+
+    {"grupo": "Disponible", "nombre": "Tesorería (caja y bancos)", "peso_min": 0.02, "peso_max": 0.25}
   ],
   "patrimonio_neto": [
-    {"nombre": "Capital social", "peso_min": 0.20, "peso_max": 0.60},
-    {"nombre": "Prima de emisión y aportaciones de socios", "peso_min": 0.00, "peso_max": 0.05},
-    {"nombre": "Reservas", "peso_min": 0.00, "peso_max": 0.30},
-    {"nombre": "Resultados de ejercicios anteriores", "peso_min": 0.00, "peso_max": 0.10},
-    {"nombre": "Resultado del ejercicio", "peso_min": 0.00, "peso_max": 0.08}
+    {"grupo": "Fondos propios", "nombre": "Capital social", "peso_min": 0.20, "peso_max": 0.60},
+    {"grupo": "Fondos propios", "nombre": "Prima de emisión y aportaciones de socios", "peso_min": 0.00, "peso_max": 0.05},
+    {"grupo": "Fondos propios", "nombre": "Reservas", "peso_min": 0.00, "peso_max": 0.30},
+    {"grupo": "Fondos propios", "nombre": "Resultados de ejercicios anteriores", "peso_min": 0.00, "peso_max": 0.10},
+    {"grupo": "Fondos propios", "nombre": "Resultado del ejercicio", "peso_min": 0.00, "peso_max": 0.08}
   ],
   "pasivo_no_corriente": [
-    {"nombre": "Deudas con entidades de crédito a largo plazo", "peso_min": 0.05, "peso_max": 0.30},
-    {"nombre": "Deudas con empresas del grupo y asociadas a largo plazo", "peso_min": 0.00, "peso_max": 0.10},
-    {"nombre": "Otras deudas a largo plazo", "peso_min": 0.00, "peso_max": 0.15},
-    {"nombre": "Provisiones a largo plazo", "peso_min": 0.00, "peso_max": 0.10}
+    {"grupo": "Deudas a largo plazo", "nombre": "Deudas con entidades de crédito a largo plazo", "peso_min": 0.05, "peso_max": 0.30},
+    {"grupo": "Deudas a largo plazo", "nombre": "Deudas con empresas del grupo y asociadas a largo plazo", "peso_min": 0.00, "peso_max": 0.10},
+    {"grupo": "Deudas a largo plazo", "nombre": "Otras deudas a largo plazo", "peso_min": 0.00, "peso_max": 0.15},
+    {"grupo": "Provisiones a largo plazo", "nombre": "Provisiones a largo plazo", "peso_min": 0.00, "peso_max": 0.10}
   ],
   "pasivo_corriente": [
-    {"nombre": "Proveedores", "peso_min": 0.05, "peso_max": 0.25},
-    {"nombre": "Acreedores varios", "peso_min": 0.00, "peso_max": 0.15},
-    {"nombre": "Hacienda Pública acreedora", "peso_min": 0.00, "peso_max": 0.10},
-    {"nombre": "Organismos de la Seguridad Social acreedores", "peso_min": 0.00, "peso_max": 0.08},
-    {"nombre": "Deudas con entidades de crédito a corto plazo", "peso_min": 0.02, "peso_max": 0.25},
-    {"nombre": "Otras deudas a corto plazo", "peso_min": 0.00, "peso_max": 0.15}
+    {"grupo": "Acreedores comerciales", "nombre": "Proveedores", "peso_min": 0.05, "peso_max": 0.25},
+    {"grupo": "Acreedores comerciales", "nombre": "Acreedores varios", "peso_min": 0.00, "peso_max": 0.15},
+
+    {"grupo": "Administraciones Públicas", "nombre": "Hacienda Pública acreedora", "peso_min": 0.00, "peso_max": 0.10},
+    {"grupo": "Administraciones Públicas", "nombre": "Organismos de la Seguridad Social acreedores", "peso_min": 0.00, "peso_max": 0.08},
+
+    {"grupo": "Deudas financieras a corto plazo", "nombre": "Deudas con entidades de crédito a corto plazo", "peso_min": 0.02, "peso_max": 0.25},
+    {"grupo": "Otras deudas a corto plazo", "nombre": "Otras deudas a corto plazo", "peso_min": 0.00, "peso_max": 0.15}
   ]
 }
