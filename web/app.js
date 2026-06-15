@@ -55,6 +55,23 @@ const RANGOS_ACTIVO = {
   grande: [20000000, 200000000],
 };
 
+// Configuración simplificada de la cuenta de pérdidas y ganancias (modelo abreviado)
+const PYG_INGRESOS = [
+  { grupo: "Explotación", nombre: "Importe neto de la cifra de negocios", peso_min: 0.60, peso_max: 0.85 },
+  { grupo: "Explotación", nombre: "Otros ingresos de explotación", peso_min: 0.00, peso_max: 0.10 },
+  { grupo: "Financieros", nombre: "Ingresos financieros", peso_min: 0.00, peso_max: 0.05 },
+  { grupo: "Extraordinarios", nombre: "Ingresos extraordinarios", peso_min: 0.00, peso_max: 0.05 },
+];
+
+const PYG_GASTOS = [
+  { grupo: "Consumos y personal", nombre: "Consumos de explotación", peso_min: 0.30, peso_max: 0.55 },
+  { grupo: "Consumos y personal", nombre: "Gastos de personal", peso_min: 0.10, peso_max: 0.25 },
+  { grupo: "Estructura", nombre: "Otros gastos de explotación", peso_min: 0.05, peso_max: 0.15 },
+  { grupo: "Amortizaciones y provisiones", nombre: "Amortizaciones y provisiones", peso_min: 0.02, peso_max: 0.10 },
+  { grupo: "Financieros", nombre: "Gastos financieros", peso_min: 0.00, peso_max: 0.06 },
+  { grupo: "Extraordinarios", nombre: "Gastos e impuestos extraordinarios", peso_min: 0.00, peso_max: 0.04 },
+];
+
 // Utilidad para semillas reproducibles
 function mulberry32(a) {
   return function () {
@@ -127,6 +144,33 @@ function generarBalance(tamano, seed) {
     patrimonio_neto: pnCuentas,
     pasivo_no_corriente: pnc,
     pasivo_corriente: pc,
+  };
+}
+
+function generarPyG(seed) {
+  const rand = crearRandom(seed);
+
+  // Tomamos una escala de ventas netas razonable (p.ej. 70.000 - 2.000.000 €)
+  const ventasNetas = rand() * (2000000 - 70000) + 70000;
+
+  // Ingresos totales algo superiores o iguales a ventas netas
+  const totalIngresos = ventasNetas * (1 + rand() * 0.2);
+  const ingresos = distribuirPorPesos(totalIngresos, PYG_INGRESOS, rand);
+
+  // Gastos totales en torno al 70-95% de los ingresos (resultado positivo o ajustado)
+  const margen = 0.05 + rand() * 0.25; // resultado entre 5% y 30% de ventas aproximadamente
+  const totalGastos = totalIngresos * (1 - margen);
+  const gastos = distribuirPorPesos(totalGastos, PYG_GASTOS, rand);
+
+  const resultado = totalIngresos - totalGastos;
+
+  return {
+    ingresos,
+    gastos,
+    ventasNetas,
+    totalIngresos,
+    totalGastos,
+    resultado,
   };
 }
 
@@ -211,6 +255,33 @@ function renderTablaAgrupada(elementId, cuentas) {
   el.innerHTML = html;
 }
 
+function renderTablaSimplePyG(elementId, partidas) {
+  const el = document.getElementById(elementId);
+  if (!el) return;
+
+  const grupos = {};
+  partidas.forEach((p) => {
+    const g = p.grupo || "Otros";
+    if (!grupos[g]) grupos[g] = [];
+    grupos[g].push(p);
+  });
+
+  let html = "<thead><tr><th>Grupo / Partida</th><th class=\"importe\">Importe (€)</th></tr></thead><tbody>";
+  Object.keys(grupos).forEach((grupo) => {
+    const lista = grupos[grupo];
+    const subtotal = sumar(lista);
+    html += `<tr class="grupo"><td><strong>${grupo}</strong></td><td class="importe"><strong>${formatearNumero(subtotal)}</strong></td></tr>`;
+    lista.forEach((p) => {
+      html += `<tr><td>&nbsp;&nbsp;&nbsp;${p.nombre}</td><td class="importe">${formatearNumero(p.amount)}</td></tr>`;
+    });
+  });
+
+  const total = sumar(partidas);
+  html += `<tr><td><strong>Total</strong></td><td class="importe"><strong>${formatearNumero(total)}</strong></td></tr>`;
+  html += "</tbody>";
+  el.innerHTML = html;
+}
+
 function mostrarAlertas(validacion) {
   const cont = document.getElementById("alertas");
   if (!cont) return;
@@ -241,12 +312,13 @@ function activarTabs() {
 }
 
 function inicializar() {
-  const btn = document.getElementById("btn-generar");
+  const btnBalance = document.getElementById("btn-generar");
+  const btnPyG = document.getElementById("btn-generar-pyg");
   const resultado = document.getElementById("resultado");
   const tamanoSelect = document.getElementById("tamano");
   const semillaInput = document.getElementById("semilla");
 
-  btn.addEventListener("click", () => {
+  btnBalance.addEventListener("click", () => {
     const tamano = tamanoSelect.value;
     const seed = semillaInput.value ? Number(semillaInput.value) : undefined;
 
@@ -271,6 +343,20 @@ function inicializar() {
     renderTablaAgrupada("tabla-pn", balance.patrimonio_neto);
     renderTablaAgrupada("tabla-pnc", balance.pasivo_no_corriente);
     renderTablaAgrupada("tabla-pc", balance.pasivo_corriente);
+
+    resultado.classList.remove("hidden");
+  });
+
+  btnPyG.addEventListener("click", () => {
+    const seed = semillaInput.value ? Number(semillaInput.value) : undefined;
+    const pyg = generarPyG(seed);
+
+    document.getElementById("pyg-ventas").textContent = formatearNumero(pyg.ventasNetas);
+    document.getElementById("pyg-gastos").textContent = formatearNumero(pyg.totalGastos);
+    document.getElementById("pyg-resultado").textContent = formatearNumero(pyg.resultado);
+
+    renderTablaSimplePyG("tabla-pyg-ing", pyg.ingresos);
+    renderTablaSimplePyG("tabla-pyg-gas", pyg.gastos);
 
     resultado.classList.remove("hidden");
   });
