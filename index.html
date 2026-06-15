@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Generador de balances de situación</title>
+  <link rel="stylesheet" href="web/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container">
+      <h1>Generador de balances de situación</h1>
+      <p class="subtitle">Herramienta educativa para practicar contabilidad financiera española.</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>Configuración del ejercicio</h2>
+      <div class="form-row">
+        <label for="tamano">Tamaño de la empresa</label>
+        <select id="tamano">
+          <option value="micro">Microempresa</option>
+          <option value="pyme" selected>PYME</option>
+          <option value="mediana">Empresa mediana</option>
+          <option value="grande">Empresa grande</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label for="semilla">Semilla (opcional, para repetir el mismo ejercicio)</label>
+        <input id="semilla" type="number" min="0" placeholder="Ej: 42" />
+      </div>
+      <button id="btn-generar" class="btn-primary">Generar balance</button>
+      <p class="helper-text">El generador respeta la ecuación patrimonial: Activo = Patrimonio neto + Pasivo.</p>
+    </section>
+
+    <section id="resultado" class="card hidden">
+      <h2>Balance generado</h2>
+      <div id="alertas"></div>
+
+      <div class="totales-grid">
+        <div class="total-box">
+          <h3>Totales</h3>
+          <ul>
+            <li><strong>Activo total:</strong> <span id="tot-activo"></span> €</li>
+            <li><strong>Patrimonio neto:</strong> <span id="tot-pn"></span> €</li>
+            <li><strong>Pasivo total:</strong> <span id="tot-pasivo"></span> €</li>
+            <li><strong>PN + Pasivo:</strong> <span id="tot-pn-pasivo"></span> €</li>
+          </ul>
+        </div>
+
+        <div class="total-box">
+          <h3>Ratios financieros</h3>
+          <ul>
+            <li><strong>Fondo de maniobra:</strong> <span id="ratio-fm"></span> €</li>
+            <li><strong>Liquidez (AC / PC):</strong> <span id="ratio-liquidez"></span></li>
+            <li><strong>Solvencia (Activo / Pasivo):</strong> <span id="ratio-solvencia"></span></li>
+            <li><strong>Endeudamiento (Pasivo / PN):</strong> <span id="ratio-endeudamiento"></span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tab-layout">
+        <button class="tab active" data-tab="activo">Activo</button>
+        <button class="tab" data-tab="pn-pasivo">Patrimonio neto y pasivo</button>
+      </div>
+
+      <div id="tab-activo" class="tab-panel">
+        <h3>Activo no corriente</h3>
+        <table class="tabla-cuentas" id="tabla-anc"></table>
+        <h3>Activo corriente</h3>
+        <table class="tabla-cuentas" id="tabla-ac"></table>
+      </div>
+
+      <div id="tab-pn-pasivo" class="tab-panel hidden">
+        <h3>Patrimonio neto</h3>
+        <table class="tabla-cuentas" id="tabla-pn"></table>
+        <h3>Pasivo no corriente</h3>
+        <table class="tabla-cuentas" id="tabla-pnc"></table>
+        <h3>Pasivo corriente</h3>
+        <table class="tabla-cuentas" id="tabla-pc"></table>
+      </div>
+
+      <p class="note">
+        Esta web es una versión estática del generador. El backend en Python/Streamlit con la misma lógica
+        está disponible en el repositorio <a href="https://github.com/HipocratesDeCos/balance-generator" target="_blank" rel="noopener">balance-generator</a>.
+      </p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <small>
+        Proyecto educativo de contabilidad financiera. Código fuente en
+        <a href="https://github.com/HipocratesDeCos/balance-generator" target="_blank" rel="noopener">GitHub</a>.
+      </small>
+    </div>
+  </footer>
+
+  <script src="web/app.js"></script>
+</body>
+</html>
