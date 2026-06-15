@@ -72,7 +72,6 @@ const PYG_GASTOS = [
   { grupo: "Extraordinaris", nombre: "Despeses i impostos extraordinaris", peso_min: 0.00, peso_max: 0.04 },
 ];
 
-// Utilidad para semillas reproducibles
 function mulberry32(a) {
   return function () {
     let t = (a += 0x6d2b79f5);
@@ -172,7 +171,7 @@ function generarPyG(seed) {
 }
 
 function generarHistoriaEmpresa(tamano, balance, pyg) {
-  const { activo, pn, pasivo } = calcularTotales(balance);
+  const { activo, pn } = calcularTotales(balance);
   const ratios = calcularRatios(balance);
   const endeudamiento = ratios.endeudamiento;
   const liquidez = ratios.liquidez;
@@ -355,6 +354,12 @@ function activarTabs() {
   });
 }
 
+function ocultarTodosLosBloques() {
+  document.getElementById("bloc-historia").classList.add("hidden");
+  document.getElementById("bloc-balance").classList.add("hidden");
+  document.getElementById("bloc-pyg").classList.add("hidden");
+}
+
 function inicializar() {
   const btnBalance = document.getElementById("btn-generar");
   const btnPyG = document.getElementById("btn-generar-pyg");
@@ -396,6 +401,8 @@ function inicializar() {
     renderTablaAgrupada("tabla-pnc", balance.pasivo_no_corriente);
     renderTablaAgrupada("tabla-pc", balance.pasivo_corriente);
 
+    ocultarTodosLosBloques();
+    document.getElementById("bloc-balance").classList.remove("hidden");
     resultado.classList.remove("hidden");
   });
 
@@ -426,6 +433,8 @@ function inicializar() {
     renderTablaSimplePyG("tabla-pyg-ing", pyg.ingresos);
     renderTablaSimplePyG("tabla-pyg-gas", pyg.gastos);
 
+    ocultarTodosLosBloques();
+    document.getElementById("bloc-pyg").classList.remove("hidden");
     resultado.classList.remove("hidden");
   });
 
@@ -434,33 +443,27 @@ function inicializar() {
     const seed = semillaInput.value ? Number(semillaInput.value) : undefined;
 
     const balance = generarBalance(tamano, seed);
-    const valid = validarBalance(balance);
-    const ratios = calcularRatios(balance);
     const pyg = generarPyG(seed);
 
+    document.getElementById("alertas").innerHTML = "";
+    document.getElementById("tot-activo").textContent = "";
+    document.getElementById("tot-pn").textContent = "";
+    document.getElementById("tot-pasivo").textContent = "";
+    document.getElementById("tot-pn-pasivo").textContent = "";
+    document.getElementById("ratio-fm").textContent = "";
+    document.getElementById("ratio-liquidez").textContent = "";
+    document.getElementById("ratio-solvencia").textContent = "";
+    document.getElementById("ratio-endeudamiento").textContent = "";
+    document.getElementById("tabla-anc").innerHTML = "";
+    document.getElementById("tabla-ac").innerHTML = "";
+    document.getElementById("tabla-pn").innerHTML = "";
+    document.getElementById("tabla-pnc").innerHTML = "";
+    document.getElementById("tabla-pc").innerHTML = "";
     document.getElementById("pyg-ventas").textContent = "";
     document.getElementById("pyg-gastos").textContent = "";
     document.getElementById("pyg-resultado").textContent = "";
     document.getElementById("tabla-pyg-ing").innerHTML = "";
     document.getElementById("tabla-pyg-gas").innerHTML = "";
-
-    mostrarAlertas(valid);
-
-    document.getElementById("tot-activo").textContent = formatearNumero(valid.activo);
-    document.getElementById("tot-pn").textContent = formatearNumero(valid.pn);
-    document.getElementById("tot-pasivo").textContent = formatearNumero(valid.pasivo);
-    document.getElementById("tot-pn-pasivo").textContent = formatearNumero(valid.pn + valid.pasivo);
-
-    document.getElementById("ratio-fm").textContent = formatearNumero(ratios.fm);
-    document.getElementById("ratio-liquidez").textContent = formatearNumero(ratios.liquidez);
-    document.getElementById("ratio-solvencia").textContent = formatearNumero(ratios.solvencia);
-    document.getElementById("ratio-endeudamiento").textContent = formatearNumero(ratios.endeudamiento);
-
-    renderTablaAgrupada("tabla-anc", balance.activo_no_corriente);
-    renderTablaAgrupada("tabla-ac", balance.activo_corriente);
-    renderTablaAgrupada("tabla-pn", balance.patrimonio_neto);
-    renderTablaAgrupada("tabla-pnc", balance.pasivo_no_corriente);
-    renderTablaAgrupada("tabla-pc", balance.pasivo_corriente);
 
     const parrafos = generarHistoriaEmpresa(tamano, balance, pyg);
     const contHistoria = document.getElementById("historia-empresa");
@@ -471,9 +474,12 @@ function inicializar() {
       contHistoria.appendChild(elP);
     });
 
+    ocultarTodosLosBloques();
+    document.getElementById("bloc-historia").classList.remove("hidden");
     resultado.classList.remove("hidden");
   });
 
+  ocultarTodosLosBloques();
   activarTabs();
 }
 
