@@ -15,13 +15,13 @@ const CUENTAS = {
     { grupo: "Existencias", nombre: "Existencias de mercaderías", peso_min: 0.05, peso_max: 0.25 },
     { grupo: "Existencias", nombre: "Existencias de productos terminados", peso_min: 0.0, peso_max: 0.10 },
 
-    { grupo: "Realizable", nombre: "Clientes", peso_min: 0.05, peso_max: 0.25 },
-    { grupo: "Realizable", nombre: "Deudores varios", peso_min: 0.0, peso_max: 0.10 },
-    { grupo: "Realizable", nombre: "Hacienda Pública deudora", peso_min: 0.0, peso_max: 0.08 },
+    { grupo: "Deudores comerciales", nombre: "Clientes", peso_min: 0.05, peso_max: 0.25 },
+    { grupo: "Deudores comerciales", nombre: "Deudores varios", peso_min: 0.0, peso_max: 0.10 },
+    { grupo: "Deudores comerciales", nombre: "Hacienda Pública deudora", peso_min: 0.0, peso_max: 0.08 },
 
     { grupo: "Inversiones financieras a corto plazo", nombre: "Inversiones financieras a corto plazo", peso_min: 0.0, peso_max: 0.20 },
 
-    { grupo: "Disponible", nombre: "Tesorería (caja y bancos)", peso_min: 0.01, peso_max: 0.25 },
+    { grupo: "Efectivo y otros activos líquidos equivalentes", nombre: "Tesorería (caja y bancos)", peso_min: 0.01, peso_max: 0.25 },
   ],
   patrimonio_neto: [
     { grupo: "Fondos propios", nombre: "Capital social", peso_min: 0.20, peso_max: 0.60 },
