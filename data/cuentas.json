@@ -1,0 +1,29 @@
+{
+  "activo_no_corriente": [
+    {"nombre": "Inmovilizado intangible", "peso_min": 0.02, "peso_max": 0.08},
+    {"nombre": "Inmovilizado material", "peso_min": 0.10, "peso_max": 0.45},
+    {"nombre": "Inversiones financieras a largo plazo", "peso_min": 0.00, "peso_max": 0.10}
+  ],
+  "activo_corriente": [
+    {"nombre": "Existencias", "peso_min": 0.05, "peso_max": 0.35},
+    {"nombre": "Clientes", "peso_min": 0.05, "peso_max": 0.30},
+    {"nombre": "Deudores", "peso_min": 0.00, "peso_max": 0.15},
+    {"nombre": "Inversiones financieras a corto plazo", "peso_min": 0.00, "peso_max": 0.20},
+    {"nombre": "Tesoreria", "peso_min": 0.01, "peso_max": 0.25}
+  ],
+  "patrimonio_neto": [
+    {"nombre": "Capital social", "peso_min": 0.20, "peso_max": 0.60},
+    {"nombre": "Reservas", "peso_min": 0.00, "peso_max": 0.30},
+    {"nombre": "Resultado del ejercicio", "peso_min": 0.00, "peso_max": 0.10}
+  ],
+  "pasivo_no_corriente": [
+    {"nombre": "Deudas a largo plazo", "peso_min": 0.05, "peso_max": 0.40},
+    {"nombre": "Provisiones a largo plazo", "peso_min": 0.00, "peso_max": 0.10}
+  ],
+  "pasivo_corriente": [
+    {"nombre": "Proveedores", "peso_min": 0.05, "peso_max": 0.30},
+    {"nombre": "Acreedores", "peso_min": 0.00, "peso_max": 0.15},
+    {"nombre": "Hacienda Pública acreedora", "peso_min": 0.00, "peso_max": 0.10},
+    {"nombre": "Deudas a corto plazo", "peso_min": 0.02, "peso_max": 0.25}
+  ]
+}
