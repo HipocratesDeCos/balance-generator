@@ -1,123 +1,127 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="ca">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Generador de balances de situación</title>
+  <title>Generador de balanços de situació</title>
   <link rel="stylesheet" href="web/styles.css" />
 </head>
 <body>
   <header class="topbar">
     <div class="container">
-      <h1>Generador de balances de situación</h1>
-      <p class="subtitle">Herramienta educativa para practicar contabilidad financiera española.</p>
+      <h1>Generador de balanços de situació</h1>
+      <p class="subtitle">Eina educativa per practicar comptabilitat financera segons la normativa espanyola.</p>
     </div>
   </header>
 
   <main class="container">
     <section class="card">
-      <h2>Configuración del ejercicio</h2>
+      <h2>Configuració de l'exercici</h2>
       <div class="form-row">
-        <label for="tamano">Tamaño de la empresa</label>
+        <label for="tamano">Mida de l'empresa</label>
         <select id="tamano">
           <option value="micro">Microempresa</option>
-          <option value="pyme" selected>Empresa pequeña - De 10 a 49 trabajadores - Facturación ≤ 10 millones € - Activos totales ≤ 10 millones €</option>
-          <option value="mediana">Empresa mediana</option>
-          <option value="grande">Empresa grande</option>
+          <option value="pyme" selected>Petita empresa - De 10 a 49 treballadors - Facturació ≤ 10 milions € - Actius totals ≤ 10 milions €</option>
+          <option value="mediana">Empresa mitjana</option>
+          <option value="grande">Gran empresa</option>
         </select>
       </div>
       <div class="form-row">
-        <label for="semilla">Semilla (opcional, para repetir el mismo ejercicio)</label>
-        <input id="semilla" type="number" min="0" placeholder="Ej: 42" />
+        <label for="semilla">Llavor (opcional, per repetir el mateix exercici)</label>
+        <input id="semilla" type="number" min="0" placeholder="Ex: 42" />
       </div>
       <div class="form-row buttons-row">
-        <button id="btn-generar" class="btn-primary">Balance de situación</button>
-        <button id="btn-generar-pyg" class="btn-secondary">Pérdidas y ganancias</button>
-        <button id="btn-generar-historia" class="btn-secondary">Historia de la empresa</button>
+        <button id="btn-generar" class="btn-primary">Situació financera</button>
+        <button id="btn-generar-pyg" class="btn-secondary">Pèrdues i guanys</button>
+        <button id="btn-generar-historia" class="btn-secondary">Història de l'empresa</button>
       </div>
-      <p class="helper-text">El generador respeta la ecuación patrimonial: Activo = Patrimonio neto + Pasivo.</p>
+      <p class="helper-text">El generador respecta l'equació patrimonial: Actiu = Patrimoni net + Passiu.</p>
     </section>
 
     <section id="resultado" class="card hidden">
-      <h2>Balance generado</h2>
-      <div id="alertas"></div>
-
-      <div class="totales-grid">
-        <div class="total-box">
-          <h3>Totales</h3>
-          <ul>
-            <li><strong>Activo total:</strong> <span id="tot-activo"></span> €</li>
-            <li><strong>Patrimonio neto:</strong> <span id="tot-pn"></span> €</li>
-            <li><strong>Pasivo total:</strong> <span id="tot-pasivo"></span> €</li>
-            <li><strong>PN + Pasivo:</strong> <span id="tot-pn-pasivo"></span> €</li>
-          </ul>
+      <div class="resultat-grid">
+        <div class="resultat-bloc">
+          <h2>Història de l'empresa</h2>
+          <div id="historia-empresa" class="historia-empresa"></div>
         </div>
 
-        <div class="total-box">
-          <h3>Ratios financieros</h3>
-          <ul>
-            <li><strong>Fondo de maniobra:</strong> <span id="ratio-fm"></span> €</li>
-            <li><strong>Liquidez (AC / PC):</strong> <span id="ratio-liquidez"></span></li>
-            <li><strong>Solvencia (Activo / Pasivo):</strong> <span id="ratio-solvencia"></span></li>
-            <li><strong>Endeudamiento (Pasivo / PN):</strong> <span id="ratio-endeudamiento"></span></li>
-          </ul>
+        <div class="resultat-bloc">
+          <h2>Balanç de situació</h2>
+          <div id="alertas"></div>
+
+          <div class="totales-grid">
+            <div class="total-box">
+              <h3>Totals</h3>
+              <ul>
+                <li><strong>Actiu total:</strong> <span id="tot-activo"></span> €</li>
+                <li><strong>Patrimoni net:</strong> <span id="tot-pn"></span> €</li>
+                <li><strong>Passiu total:</strong> <span id="tot-pasivo"></span> €</li>
+                <li><strong>PN + Passiu:</strong> <span id="tot-pn-pasivo"></span> €</li>
+              </ul>
+            </div>
+
+            <div class="total-box">
+              <h3>Ràtios financeres</h3>
+              <ul>
+                <li><strong>Fons de maniobra:</strong> <span id="ratio-fm"></span> €</li>
+                <li><strong>Liquiditat (AC / PC):</strong> <span id="ratio-liquidez"></span></li>
+                <li><strong>Solvència (Actiu / Passiu):</strong> <span id="ratio-solvencia"></span></li>
+                <li><strong>Endeutament (Passiu / PN):</strong> <span id="ratio-endeudamiento"></span></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="tab-layout">
+            <button class="tab active" data-tab="activo">Actiu</button>
+            <button class="tab" data-tab="pn-pasivo">Patrimoni net i passiu</button>
+          </div>
+
+          <div id="tab-activo" class="tab-panel">
+            <h3>Actiu no corrent</h3>
+            <table class="tabla-cuentas" id="tabla-anc"></table>
+            <h3>Actiu corrent</h3>
+            <table class="tabla-cuentas" id="tabla-ac"></table>
+          </div>
+
+          <div id="tab-pn-pasivo" class="tab-panel hidden">
+            <h3>Patrimoni net</h3>
+            <table class="tabla-cuentas" id="tabla-pn"></table>
+            <h3>Passiu no corrent</h3>
+            <table class="tabla-cuentas" id="tabla-pnc"></table>
+            <h3>Passiu corrent</h3>
+            <table class="tabla-cuentas" id="tabla-pc"></table>
+          </div>
+        </div>
+
+        <div class="resultat-bloc">
+          <h2>Compte de pèrdues i guanys</h2>
+          <div class="totales-grid">
+            <div class="total-box">
+              <h3>Resum PyG</h3>
+              <ul>
+                <li><strong>Import net de la xifra de negocis:</strong> <span id="pyg-ventas"></span> €</li>
+                <li><strong>Total despeses:</strong> <span id="pyg-gastos"></span> €</li>
+                <li><strong>Resultat de l'exercici:</strong> <span id="pyg-resultado"></span> €</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="pyg-grid">
+            <div>
+              <h3>Ingressos</h3>
+              <table class="tabla-cuentas" id="tabla-pyg-ing"></table>
+            </div>
+            <div>
+              <h3>Despeses</h3>
+              <table class="tabla-cuentas" id="tabla-pyg-gas"></table>
+            </div>
+          </div>
         </div>
       </div>
-
-      <div class="tab-layout">
-        <button class="tab active" data-tab="activo">Activo</button>
-        <button class="tab" data-tab="pn-pasivo">Patrimonio neto y pasivo</button>
-      </div>
-
-      <div id="tab-activo" class="tab-panel">
-        <h3>Activo no corriente</h3>
-        <table class="tabla-cuentas" id="tabla-anc"></table>
-        <h3>Activo corriente</h3>
-        <table class="tabla-cuentas" id="tabla-ac"></table>
-      </div>
-
-      <div id="tab-pn-pasivo" class="tab-panel hidden">
-        <h3>Patrimonio neto</h3>
-        <table class="tabla-cuentas" id="tabla-pn"></table>
-        <h3>Pasivo no corriente</h3>
-        <table class="tabla-cuentas" id="tabla-pnc"></table>
-        <h3>Pasivo corriente</h3>
-        <table class="tabla-cuentas" id="tabla-pc"></table>
-      </div>
-
-      <hr />
-
-      <h2>Cuenta de pérdidas y ganancias (modelo abreviado)</h2>
-      <div class="totales-grid">
-        <div class="total-box">
-          <h3>Resumen PyG</h3>
-          <ul>
-            <li><strong>Importe neto de la cifra de negocios:</strong> <span id="pyg-ventas"></span> €</li>
-            <li><strong>Total gastos:</strong> <span id="pyg-gastos"></span> €</li>
-            <li><strong>Resultado del ejercicio:</strong> <span id="pyg-resultado"></span> €</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="pyg-grid">
-        <div>
-          <h3>Ingresos</h3>
-          <table class="tabla-cuentas" id="tabla-pyg-ing"></table>
-        </div>
-        <div>
-          <h3>Gastos</h3>
-          <table class="tabla-cuentas" id="tabla-pyg-gas"></table>
-        </div>
-      </div>
-
-      <hr />
-
-      <h2>Historia de la empresa</h2>
-      <div id="historia-empresa" class="historia-empresa"></div>
 
       <p class="note">
-        Esta web es una versión estática del generador. El backend en Python/Streamlit con la misma lógica
-        está disponible en el repositorio <a href="https://github.com/HipocratesDeCos/balance-generator" target="_blank" rel="noopener">balance-generator</a>.
+        Aquesta web és una versió estàtica del generador. El backend en Python/Streamlit amb la mateixa lògica
+        està disponible al repositori <a href="https://github.com/HipocratesDeCos/balance-generator" target="_blank" rel="noopener">balance-generator</a>.
       </p>
     </section>
   </main>
@@ -125,7 +129,7 @@
   <footer class="footer">
     <div class="container">
       <small>
-        Proyecto educativo de contabilidad financiera. Código fuente en
+        Projecte educatiu de comptabilitat financera. Codi font a
         <a href="https://github.com/HipocratesDeCos/balance-generator" target="_blank" rel="noopener">GitHub</a>.
       </small>
     </div>
