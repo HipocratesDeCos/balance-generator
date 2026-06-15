@@ -23,7 +23,7 @@ body {
 
 .container {
   width: 100%;
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 1.25rem;
 }
@@ -142,13 +142,25 @@ input[type="number"] {
 
 .resultat-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1.25rem;
+  grid-template-columns: 1.1fr 1.1fr 1.2fr;
+  gap: 1.5rem;
+  align-items: flex-start;
   margin-top: 1.25rem;
 }
 
-.resultat-bloc h3 {
+.resultat-bloc h2 {
   margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+
+.resultat-bloc {
+  border-left: 1px solid rgba(226, 232, 240, 0.8);
+  padding-left: 1rem;
+}
+
+.resultat-bloc:first-child {
+  border-left: none;
+  padding-left: 0;
 }
 
 .historia-empresa {
@@ -163,46 +175,47 @@ input[type="number"] {
 
 .totales-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1rem;
-  margin: 1rem 0 1.5rem;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  margin: 0.75rem 0 1.25rem;
 }
 
 .total-box {
   background: var(--primary-soft);
   border-radius: 0.9rem;
-  padding: 0.9rem 1rem;
+  padding: 0.8rem 0.9rem;
 }
 
 .total-box h3 {
   margin-top: 0;
+  margin-bottom: 0.35rem;
 }
 
 .total-box ul {
   list-style: none;
   padding-left: 0;
-  margin: 0.3rem 0 0;
+  margin: 0;
   font-size: 0.9rem;
 }
 
 .total-box li {
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.15rem;
 }
 
 .tab-layout {
   display: inline-flex;
   border-radius: 999px;
-  padding: 0.2rem;
+  padding: 0.15rem;
   background: #eef2ff;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 .tab {
   border: none;
   background: transparent;
-  padding: 0.4rem 0.9rem;
+  padding: 0.35rem 0.8rem;
   border-radius: 999px;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   cursor: pointer;
   color: #4b5563;
 }
@@ -214,19 +227,19 @@ input[type="number"] {
 }
 
 .tab-panel h3 {
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.35rem;
 }
 
 .tabla-cuentas {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 1rem;
-  font-size: 0.9rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.85rem;
 }
 
 .tabla-cuentas th,
 .tabla-cuentas td {
-  padding: 0.35rem 0.5rem;
+  padding: 0.3rem 0.45rem;
   border-bottom: 1px solid var(--border);
 }
 
@@ -243,9 +256,9 @@ input[type="number"] {
 
 .alert {
   border-radius: 0.75rem;
-  padding: 0.65rem 0.8rem;
-  font-size: 0.9rem;
-  margin-bottom: 0.8rem;
+  padding: 0.55rem 0.75rem;
+  font-size: 0.85rem;
+  margin-bottom: 0.7rem;
 }
 
 .alert.ok {
@@ -261,13 +274,14 @@ input[type="number"] {
 }
 
 .alert ul {
-  margin: 0.3rem 0 0;
+  margin: 0.25rem 0 0;
   padding-left: 1.25rem;
 }
 
 .note {
   font-size: 0.8rem;
   color: var(--muted);
+  margin-top: 1.25rem;
 }
 
 .footer {
@@ -285,9 +299,23 @@ input[type="number"] {
   color: var(--primary);
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
   .resultat-grid {
     grid-template-columns: 1fr;
+  }
+
+  .resultat-bloc {
+    border-left: none;
+    padding-left: 0;
+    border-top: 1px solid rgba(226, 232, 240, 0.8);
+    padding-top: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .resultat-bloc:first-child {
+    border-top: none;
+    padding-top: 0;
+    margin-top: 0;
   }
 }
 
