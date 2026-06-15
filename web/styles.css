@@ -90,21 +90,44 @@ input[type="number"] {
   font-size: 0.95rem;
 }
 
+.buttons-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.btn-primary,
+.btn-secondary {
+  border: none;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 0.45rem 0.9rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+
 .btn-primary {
   background: var(--primary);
-  border: none;
   color: #fff;
-  padding: 0.55rem 1.25rem;
-  border-radius: 999px;
-  font-size: 0.95rem;
-  font-weight: 500;
-  margin-top: 0.25rem;
-  cursor: pointer;
-  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
+  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.25);
 }
 
 .btn-primary:hover {
   background: #1d4ed8;
+}
+
+.btn-secondary {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.btn-secondary:hover {
+  background: #d1d5db;
 }
 
 .helper-text {
