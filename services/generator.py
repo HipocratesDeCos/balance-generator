@@ -45,11 +45,27 @@ class BalanceGenerator:
         cuentas: list[Cuenta] = []
         for cfg, peso in zip(cuentas_conf, pesos):
             amount = total * (peso / suma_pesos)
-            cuentas.append(Cuenta(nombre=cfg["nombre"], section=seccion, amount=round(amount, 2)))
+            cuentas.append(
+                Cuenta(
+                    nombre=cfg["nombre"],
+                    section=seccion,
+                    amount=round(amount, 2),
+                    grupo=cfg.get("grupo"),
+                )
+            )
         return cuentas
 
     def generar_balance(self, tamanio: TamanioEmpresa = "pyme") -> Balance:
-        """Genera un balance cuadrado y coherente a nivel básico."""
+        """Genera un balance cuadrado y coherente a nivel básico.
+
+        La jerarquía de importes se controla así:
+        - Primero se genera el total de la masa (por ejemplo, activo no corriente).
+        - Ese total se reparte entre las partidas de la sección mediante pesos.
+        - Las submasas (grupo) se obtienen como suma de las partidas que las integran.
+
+        De este modo, la suma de partidas = importe de la submasa y la suma de submasas =
+        importe total de la masa, respetando la ecuación patrimonial global.
+        """
 
         total_activo = self._random_total_activo(tamanio)
 
@@ -100,7 +116,12 @@ class BalanceGenerator:
 def balance_a_dict(balance: Balance) -> Dict[str, Any]:
     def cuentas_to_list(cuentas):
         return [
-            {"nombre": c.nombre, "section": c.section, "amount": c.amount}
+            {
+                "nombre": c.nombre,
+                "section": c.section,
+                "amount": c.amount,
+                "grupo": c.grupo,
+            }
             for c in cuentas
         ]
 
