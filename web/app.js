@@ -70,33 +70,29 @@ const MERCATS_EXPORTACIÓ = [
   ["Bèlgica", "Suècia", "Mèxic"],
 ];
 
-// Estratègies Ansoff: descriu el quadrant sense anomenar-lo
-// Cada objecte: { quadrant, paragraf(nom, producte, pyg) }
 const ANSOFF_ESTRATEGIES = [
   {
     quadrant: "penetració de mercat",
-    paragraf: (nom, producte, inxn) =>
+    paragraf: (nom, producte) =>
       `Davant la pressió competitiva del sector, la direcció de ${nom} va optar per intensificar les vendes del seu catàleg actual entre la base de clients ja existent i per captar nous compradors dins del mateix mercat, sense modificar ni el producte ni el segment al qual es dirigia. Per assolir-ho, va reforçar la xarxa comercial i va introduir condicions de pagament més avantatjoses per als clients amb comandes recurrents, aconseguint un increment de les unitats venudes sense necessitat de diversificar el catàleg.`,
   },
   {
     quadrant: "desenvolupament de producte",
-    paragraf: (nom, producte, inxn) =>
+    paragraf: (nom, producte) =>
       `En resposta a les noves exigències dels clients habituals, ${nom} va decidir ampliar la gamma de ${producte} incorporant versions amb acabats i prestacions superiors, dirigides al mateix segment de mercat que ja coneixia bé. El procés de disseny i prova va durar gairebé divuit mesos, i la nova gamma es va llançar sense obrir nous canals de distribució ni accedir a nous mercats.`,
   },
   {
     quadrant: "desenvolupament de mercat",
-    paragraf: (nom, producte, inxn) =>
+    paragraf: (nom, producte) =>
       `Per compensar la saturació del mercat domèstic, ${nom} va iniciar una estratègia d'expansió geogràfica cap a nous territoris on el producte era pràcticament desconegut, sense alterar les característiques tècniques de la seva oferta principal. Primer va consolidar la presència al mercat ibèric i, posteriorment, va obrir delegacions comercials a dos països del nord d'Europa.`,
   },
   {
     quadrant: "diversificació",
-    paragraf: (nom, producte, inxn) =>
+    paragraf: (nom, producte) =>
       `La direcció de ${nom} va identificar una oportunitat en un sector fins llavors aliè a la seva activitat principal i va decidir llançar una línia de serveis de manteniment preventiu adreçada a clients industrials d'un segment completament diferent del que havia treballat fins aleshores. Ni el producte ni el mercat eren els habituals per a l'empresa, cosa que va exigir contractar nous perfils professionals i adaptar completament les instal·lacions productives.`,
   },
 ];
 
-// Descripció Porter força C (poder negociació clients) sense dir el nom
-// Cada objecte: { intensitat, text(producte) }
 const PORTER_CLIENTS = [
   {
     intensitat: "alt",
@@ -106,7 +102,7 @@ const PORTER_CLIENTS = [
   {
     intensitat: "moderat",
     text: (producte) =>
-      `Tot i que existeixen alternatives en el mercat, ${producte} de l'empresa compten amb un nivell de certificació i traçabilitat que la majoria de competidors no ofereixen. Això permet mantenir una certa capacitat de fixació de preus, si bé els clients de major volum negocien habitualment descomptes que comprimen els marges de contribució.`,
+      `Tot i que existeixen alternatives en el mercat, els ${producte} de l'empresa compten amb un nivell de certificació i traçabilitat que la majoria de competidors no ofereixen. Això permet mantenir una certa capacitat de fixació de preus, si bé els clients de major volum negocien habitualment descomptes que comprimen els marges de contribució.`,
   },
   {
     intensitat: "baix",
@@ -130,11 +126,6 @@ function crearRandom(seed) {
 }
 function rnd(rand, min, max) { return rand() * (max - min) + min; }
 function rndInt(rand, min, max) { return Math.floor(rnd(rand, min, max + 1)); }
-function distribuirPorPesos(total, conf, rand) {
-  const pesos = conf.map((c) => rnd(rand, c.peso_min, c.peso_max));
-  const suma  = pesos.reduce((a, b) => a + b, 0);
-  return conf.map((c, i) => ({ nombre: c.nombre, amount: suma > 0 ? total * pesos[i] / suma : total / conf.length }));
-}
 function distribuirPerGrups(total, conf, rand) {
   const pesos = conf.map((c) => rnd(rand, c.peso_min, c.peso_max));
   const suma  = pesos.reduce((a, b) => a + b, 0);
@@ -165,13 +156,13 @@ function generarBalance(tamano, seed) {
   return {
     activo_no_corriente: anc,
     activo_corriente:    ac,
-    patrimonio_neto:     distribuirPerGrups(pn,                   CUENTAS.patrimonio_neto,    rand),
-    pasivo_no_corriente: distribuirPerGrups(deudaTotal * proporPNC, CUENTAS.pasivo_no_corriente, rand),
+    patrimonio_neto:     distribuirPerGrups(pn,                       CUENTAS.patrimonio_neto,    rand),
+    pasivo_no_corriente: distribuirPerGrups(deudaTotal * proporPNC,   CUENTAS.pasivo_no_corriente, rand),
     pasivo_corriente:    distribuirPerGrups(deudaTotal * (1 - proporPNC), CUENTAS.pasivo_corriente, rand),
   };
 }
 
-// ─── Generació del compte de pèrdues i guanys (estructura AEAT) ──────────────
+// ─── Generació del compte de pèrdues i guanys ────────────────────────────────
 function generarPyG(seed) {
   const rand = crearRandom(seed);
 
@@ -236,24 +227,13 @@ function generarPyG(seed) {
   };
 }
 
-// =============================================================================
-// GENERACIÓ DE LA HISTÒRIA DE L'EMPRESA
-// Cada paràgraf conté una pista latent del temari PAU (sense nominar el concepte):
-//   P1 → Forma jurídica (societat anònima o limitada)
-//   P2 → Dimensió (treballadors + facturació, sense dir mai "gran empresa" etc.)
-//   P3 → Àmbit geogràfic (exportació a X països → internacional, sense dir-ho)
-//   P4 → Estratègia de creixement intern - Matriu d'Ansoff (sense dir el quadrant)
-//   P5 → Forces de Porter: poder de negociació dels clients (sense citar Porter)
-//   P6 → RSC i ODS (balanç social + ODS 9 i 12, sense usar l'acrònim RSC)
-//   P7 → Vinculació amb el balanç i el PyG (resultat, ratios, fons de maniobra)
-// =============================================================================
+// ─── Generació de la història ─────────────────────────────────────────────────
 function generarHistoriaEmpresa(tamano, balance, pyg) {
-  // Usem la mateixa seed que el balanç (si n'hi ha) per triar empresa i estratègia
-  const rand = crearRandom(undefined);  // rand addicional no determinista per a índexs
-  const iEmp   = rndInt(rand, 0, EMPRESES_FICTÍCIES.length - 1);
-  const iMerc  = rndInt(rand, 0, MERCATS_EXPORTACIÓ.length - 1);
-  const iAns   = rndInt(rand, 0, ANSOFF_ESTRATEGIES.length - 1);
-  const iPort  = rndInt(rand, 0, PORTER_CLIENTS.length - 1);
+  const rand = crearRandom(undefined);
+  const iEmp  = rndInt(rand, 0, EMPRESES_FICTÍCIES.length - 1);
+  const iMerc = rndInt(rand, 0, MERCATS_EXPORTACIÓ.length - 1);
+  const iAns  = rndInt(rand, 0, ANSOFF_ESTRATEGIES.length - 1);
+  const iPort = rndInt(rand, 0, PORTER_CLIENTS.length - 1);
 
   const emp    = EMPRESES_FICTÍCIES[iEmp];
   const mercats = MERCATS_EXPORTACIÓ[iMerc];
@@ -263,50 +243,39 @@ function generarHistoriaEmpresa(tamano, balance, pyg) {
   const { activo, pn, pasivo } = calcularTotales(balance);
   const ratios = calcularRatios(balance);
 
-  // ── Dimensió: treballadors i facturació derivats del tamano ──
-  const [trebMin, trebMax, facMin, facMax] = {
-    micro:   [1,   9,    50000,    500000],
-    pyme:    [10,  49,   500000,   10000000],
-    mediana: [50,  249,  10000000, 50000000],
-    grande:  [250, 4999, 50000000, 500000000],
+  const [trebMin, trebMax] = {
+    micro:   [1,   9],
+    pyme:    [10,  49],
+    mediana: [50,  249],
+    grande:  [250, 4999],
   }[tamano];
   const treballadors = rndInt(rand, trebMin, trebMax);
   const facturacio   = pyg.totalInxn;
 
-  // ── Forma jurídica ──
   const formaJuridica = emp.nom.includes("S.A.") ? "societat anònima" : "societat de responsabilitat limitada";
   const capitalInici  = emp.nom.includes("S.A.") ? "60.000 €" : "12.000 €";
 
-  // ── Paràgrafs ──
   const p = [];
 
-  // P1 — Origen i forma jurídica (pista: SA vs SL, capital mínim)
   p.push(
     `L'any 2003, un grup de socis va constituir ${emp.nom} com a ${formaJuridica} amb un capital inicial de ${capitalInici}, amb l'objectiu de dedicar-se a la fabricació i comercialització de ${emp.sector}. La seu social es troba a ${emp.ubicacio}, on l'empresa disposa d'unes instal·lacions modernes que han estat ampliades en diverses ocasions al llarg de la seva trajectòria.`
   );
 
-  // P2 — Dimensió (pista: treballadors + facturació, sense dir el nom de la dimensió)
   p.push(
     `Actualment, ${emp.nom} compta amb una plantilla de ${treballadors} persones contractades a jornada completa i la seva facturació anual se situa entorn de ${formatearNumero(facturacio)} €. L'actiu total del darrer exercici assoleix els ${formatearNumero(activo)} €, amb un patrimoni net de ${formatearNumero(pn)} €, fet que reflecteix una estructura financera ${ratios.endeudamiento > 2 ? "on el finançament extern té un pes notable" : "amb un pes rellevant dels recursos propis"}.`
   );
 
-  // P3 — Àmbit geogràfic (pista: exportació a múltiples països → internacional)
   p.push(
     `Des dels primers exercicis, la companyia ha mantingut una vocació clara d'obertura exterior. Avui, gairebé el ${rndInt(rand, 45, 70)}% de la producció es destina a clients situats fora de les fronteres espanyoles: el principal mercat estranger és ${mercats[0]}, seguit de ${mercats[1]} i, des de fa dos anys, d'${mercats[2]}. Les negociacions comercials internacionals es gestionen directament des de la seu de ${emp.ubicacio} per un departament especialitzat de quatre persones.`
   );
 
-  // P4 — Ansoff (pista: descriu el quadrant sense nomenar-lo)
-  p.push(ansoff.paragraf(emp.nom, emp.producte, pyg.totalInxn));
-
-  // P5 — Porter força C (pista: producte poc/molt diferenciat → poder de negociació)
+  p.push(ansoff.paragraf(emp.nom, emp.producte));
   p.push(porter.text(emp.producte));
 
-  // P6 — RSC i ODS (pista: balanç social + ODS 9 i 12, sense l'acrònim RSC)
   p.push(
     `Conscient del seu impacte en el territori on opera, ${emp.nom} publica cada any un document que recull de manera quantificada les seves actuacions socials i mediambientals: des de la reducció dels residus industrials i el consum d'energia fins a les polítiques d'igualtat i els plans de formació contínua de la plantilla. L'empresa ha alineat les seves pràctiques internes amb els objectius globals de construir infraestructures resilients i afavorir la industrialització sostenible, d'una banda, i amb els de garantir models de consum i producció responsables, de l'altra.`
   );
 
-  // P7 — Vinculació balanç/PyG (fons de maniobra, resultat, solvència)
   const descFM = ratios.fm >= 0
     ? `un fons de maniobra positiu de ${formatearNumero(ratios.fm)} €, la qual cosa indica que l'actiu corrent supera el passiu corrent i que l'empresa pot atendre les seves obligacions a curt termini sense tensions de tresoreria`
     : `un fons de maniobra negatiu de ${formatearNumero(Math.abs(ratios.fm))} €, situació que requereix una atenció especial sobre la gestió del deute a curt termini`;
@@ -356,7 +325,6 @@ function formatearNumero(n) {
   return n.toLocaleString("ca-ES", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 function fmt(n) { return formatearNumero(n); }
-function fmtNeg(n) { return n < 0 ? `(${fmt(-n)})` : fmt(n); }
 
 // ─── Renders ──────────────────────────────────────────────────────────────────
 function renderTablaAgrupada(elementId, cuentas) {
@@ -373,13 +341,11 @@ function renderTablaAgrupada(elementId, cuentas) {
   el.innerHTML = html;
 }
 
-// ─── Render de la història ────────────────────────────────────────────────────
 function renderHistoria(paragrafos) {
   const cont = document.getElementById("historia-empresa");
   if (!cont) return;
   cont.innerHTML = "";
 
-  // Etiquetes latents per al professor (ocultes per defecte, toggle per botó)
   const ETIQUETES = [
     "Forma jurídica (SA vs SL)",
     "Dimensió de l'empresa (treballadors + facturació)",
@@ -421,57 +387,51 @@ function renderHistoria(paragrafos) {
   });
 }
 
-// Renderitza el compte de pèrdues i guanys amb estructura AEAT
 function renderPyGComplet(pyg) {
   const el = document.getElementById("tabla-pyg-completa");
   if (!el) return;
 
-  const h = (cls, label, valor, esNegatiu) => {
-    const v = esNegatiu ? `(${fmt(Math.abs(valor))})` : fmt(valor);
-    return `<tr class="${cls}"><td>${label}</td><td class="importe">${v}</td></tr>`;
-  };
-  const sub   = (label)         => `<tr class="sep-bloc"><td colspan="2">${label}</td></tr>`;
-  const fila  = (label, v, neg) => h("",            label, v, neg);
-  const fsub  = (label, v, neg) => h("grup-total",   `<strong>${label}</strong>`, v, neg);
-  const fcl   = (cls, label, v) => `<tr class="resultat-clau ${cls}"><td><strong>${label}</strong></td><td class="importe"><strong>${v >= 0 ? fmt(v) : `(${fmt(-v)})`}</strong></td></tr>`;
+  const h   = (cls, label, valor, esNegatiu) => { const v = esNegatiu ? `(${fmt(Math.abs(valor))})` : fmt(valor); return `<tr class="${cls}"><td>${label}</td><td class="importe">${v}</td></tr>`; };
+  const sub  = (label) => `<tr class="sep-bloc"><td colspan="2">${label}</td></tr>`;
+  const fila = (label, v, neg) => h("", label, v, neg);
+  const fcl  = (cls, label, v) => `<tr class="resultat-clau ${cls}"><td><strong>${label}</strong></td><td class="importe"><strong>${v >= 0 ? fmt(v) : `(${fmt(-v)})`}</strong></td></tr>`;
 
   let html = "<thead><tr><th>Partida</th><th class=\"importe\">Import (€)</th></tr></thead><tbody>";
 
   html += sub("A) OPERACIONS CONTINUADES");
   html += `<tr class="grup-total"><td><strong>1. Import net de la xifra de negocis</strong></td><td class="importe"><strong>${fmt(pyg.totalInxn)}</strong></td></tr>`;
-  html += fila("&nbsp;&nbsp;&nbsp;&nbsp;a) Vendes",              pyg.p1a_vendes);
+  html += fila("&nbsp;&nbsp;&nbsp;&nbsp;a) Vendes", pyg.p1a_vendes);
   html += fila("&nbsp;&nbsp;&nbsp;&nbsp;b) Prestacions de serveis", pyg.p1b_serveis);
 
   const varPos = pyg.varExist >= 0;
   html += `<tr><td>2. Variació d'existències de productes acabats i en curs</td><td class="importe">${varPos ? fmt(pyg.varExist) : `(${fmt(-pyg.varExist)})`}</td></tr>`;
 
   html += `<tr class="grup-total"><td><strong>4. Aprovisionaments</strong></td><td class="importe"><strong>(${fmt(pyg.totalAprov)})</strong></td></tr>`;
-  html += fila("&nbsp;&nbsp;&nbsp;&nbsp;a) Consum de mercaderies",              pyg.p4a_mercd,    true);
+  html += fila("&nbsp;&nbsp;&nbsp;&nbsp;a) Consum de mercaderies", pyg.p4a_mercd, true);
   html += fila("&nbsp;&nbsp;&nbsp;&nbsp;b) Treballs realitzats per altres empreses", pyg.p4b_treballs, true);
 
   html += `<tr class="grup-total"><td><strong>5. Altres ingressos d'explotació</strong></td><td class="importe"><strong>${fmt(pyg.altresIng)}</strong></td></tr>`;
-  html += fila("&nbsp;&nbsp;&nbsp;&nbsp;a) Ingressos per arrendaments",  pyg.p5a_arrend);
-  html += fila("&nbsp;&nbsp;&nbsp;&nbsp;b) Altres de gestió corrent",    pyg.p5b_gestio);
+  html += fila("&nbsp;&nbsp;&nbsp;&nbsp;a) Ingressos per arrendaments", pyg.p5a_arrend);
+  html += fila("&nbsp;&nbsp;&nbsp;&nbsp;b) Altres de gestió corrent", pyg.p5b_gestio);
 
   html += `<tr class="grup-total"><td><strong>6. Despeses de personal</strong></td><td class="importe"><strong>(${fmt(pyg.totalPersonal)})</strong></td></tr>`;
-  html += fila("&nbsp;&nbsp;&nbsp;&nbsp;a) Sous i salaris",                   pyg.p6a_sous, true);
-  html += fila("&nbsp;&nbsp;&nbsp;&nbsp;b) Seguretat Social a càrrec empresa", pyg.p6b_ss,   true);
+  html += fila("&nbsp;&nbsp;&nbsp;&nbsp;a) Sous i salaris", pyg.p6a_sous, true);
+  html += fila("&nbsp;&nbsp;&nbsp;&nbsp;b) Seguretat Social a càrrec empresa", pyg.p6b_ss, true);
 
   html += `<tr class="grup-total"><td><strong>7. Altres despeses d'explotació</strong></td><td class="importe"><strong>(${fmt(pyg.altresDes)})</strong></td></tr>`;
-  html += fila("&nbsp;&nbsp;&nbsp;&nbsp;a) Serveis exteriors",  pyg.p7a_serveis, true);
-  html += fila("&nbsp;&nbsp;&nbsp;&nbsp;b) Tributs",            pyg.p7b_tributs, true);
+  html += fila("&nbsp;&nbsp;&nbsp;&nbsp;a) Serveis exteriors", pyg.p7a_serveis, true);
+  html += fila("&nbsp;&nbsp;&nbsp;&nbsp;b) Tributs", pyg.p7b_tributs, true);
 
   html += `<tr><td>8. Amortització de l'immobilitzat</td><td class="importe">(${fmt(pyg.amortitzacio)})</td></tr>`;
-
   html += fcl("baii", "A.1) RESULTAT D'EXPLOTACIÓ (BAII)", pyg.BAII);
 
   html += `<tr class="grup-total"><td><strong>14. Ingressos financers</strong></td><td class="importe"><strong>${fmt(pyg.ingFin)}</strong></td></tr>`;
   html += fila("&nbsp;&nbsp;&nbsp;&nbsp;a) De participacions en instruments de patrimoni", pyg.ingFin_a);
-  html += fila("&nbsp;&nbsp;&nbsp;&nbsp;b) De valors negociables i altres",              pyg.ingFin_b);
+  html += fila("&nbsp;&nbsp;&nbsp;&nbsp;b) De valors negociables i altres", pyg.ingFin_b);
 
   html += `<tr class="grup-total"><td><strong>15. Despeses financeres</strong></td><td class="importe"><strong>(${fmt(pyg.desFin)})</strong></td></tr>`;
-  html += fila("&nbsp;&nbsp;&nbsp;&nbsp;a) Per deutes amb tercers",              pyg.desFin_a, true);
-  html += fila("&nbsp;&nbsp;&nbsp;&nbsp;b) Per actualització de provisions",     pyg.desFin_b, true);
+  html += fila("&nbsp;&nbsp;&nbsp;&nbsp;a) Per deutes amb tercers", pyg.desFin_a, true);
+  html += fila("&nbsp;&nbsp;&nbsp;&nbsp;b) Per actualització de provisions", pyg.desFin_b, true);
 
   const dcPos = pyg.difCanvi >= 0;
   html += `<tr><td>17. Diferències de canvi</td><td class="importe">${dcPos ? fmt(pyg.difCanvi) : `(${fmt(-pyg.difCanvi)})`}</td></tr>`;
@@ -480,9 +440,21 @@ function renderPyGComplet(pyg) {
   html += fcl("bai", "A.3) RESULTAT ABANS D'IMPOSTOS (A.1 + A.2)", pyg.BAI);
   html += `<tr><td>20. Impost sobre beneficis (25 %)</td><td class="importe">${pyg.impost > 0 ? `(${fmt(pyg.impost)})` : fmt(0)}</td></tr>`;
   html += fcl("bn", "A.5) RESULTAT DE L'EXERCICI", pyg.BN);
-
   html += "</tbody>";
   el.innerHTML = html;
+}
+
+function renderPyGResum(pyg) {
+  const pygRes = document.getElementById("pyg-resum");
+  if (!pygRes) return;
+  pygRes.innerHTML =
+    `<h3>Resum de resultats</h3><ul>` +
+    `<li><strong>A.1 Resultat d'explotació (BAII):</strong> ${pyg.BAII >= 0 ? fmt(pyg.BAII) : `(${fmt(-pyg.BAII)})`} €<small class="pyg-desc">Ingressos d'explotació − Despeses d'explotació (sense interessos ni impostos)</small></li>` +
+    `<li><strong>A.2 Resultat financer:</strong> ${pyg.resultFin >= 0 ? fmt(pyg.resultFin) : `(${fmt(-pyg.resultFin)})`} €<small class="pyg-desc">Ingressos financers − Despeses financeres ± Diferències de canvi</small></li>` +
+    `<li><strong>A.3 Resultat abans d'impostos (BAI):</strong> ${pyg.BAI >= 0 ? fmt(pyg.BAI) : `(${fmt(-pyg.BAI)})`} €<small class="pyg-desc">BAII + Resultat financer</small></li>` +
+    `<li><strong>20. Impost sobre beneficis (25 %):</strong> (${fmt(pyg.impost)}) €</li>` +
+    `<li><strong>A.5 Resultat de l'exercici (BN):</strong> ${pyg.BN >= 0 ? fmt(pyg.BN) : `(${fmt(-pyg.BN)})`} €<small class="pyg-desc">BAI − Impost sobre beneficis</small></li>` +
+    `</ul>`;
 }
 
 // ─── Alertes balanç ───────────────────────────────────────────────────────────
@@ -507,7 +479,7 @@ function activarTabs() {
   });
 }
 
-// ─── Blocs visibles ───────────────────────────────────────────────────────────
+// ─── Helpers DOM ──────────────────────────────────────────────────────────────
 function ocultarTodosLosBloques() {
   ["bloc-historia", "bloc-balance", "bloc-pyg"].forEach((id) =>
     document.getElementById(id).classList.add("hidden")
@@ -516,79 +488,76 @@ function ocultarTodosLosBloques() {
 function netejarDOM(ids, prop) {
   ids.forEach((id) => { const el = document.getElementById(id); if (el) el[prop] = ""; });
 }
+function set(id, v) { const el = document.getElementById(id); if (el) el.textContent = v; }
+
+function renderBalance(balance, tamano, seed) {
+  const valid  = validarBalance(balance);
+  const ratios = calcularRatios(balance);
+  mostrarAlertas(valid);
+  set("tot-activo",          fmt(valid.activo));
+  set("tot-pn",              fmt(valid.pn));
+  set("tot-pasivo",          fmt(valid.pasivo));
+  set("tot-pn-pasivo",       fmt(valid.pn + valid.pasivo));
+  set("ratio-fm",            fmt(ratios.fm));
+  set("ratio-liquidez",      fmt(ratios.liquidez));
+  set("ratio-solvencia",     fmt(ratios.solvencia));
+  set("ratio-endeudamiento", fmt(ratios.endeudamiento));
+  renderTablaAgrupada("tabla-anc", balance.activo_no_corriente);
+  renderTablaAgrupada("tabla-ac",  balance.activo_corriente);
+  renderTablaAgrupada("tabla-pn",  balance.patrimonio_neto);
+  renderTablaAgrupada("tabla-pnc", balance.pasivo_no_corriente);
+  renderTablaAgrupada("tabla-pc",  balance.pasivo_corriente);
+}
 
 // ─── Inicialització ───────────────────────────────────────────────────────────
 function inicializar() {
   const tamanoSelect = document.getElementById("tamano");
   const semillaInput = document.getElementById("semilla");
   const resultado    = document.getElementById("resultado");
-
   const getSeed = () => semillaInput.value ? Number(semillaInput.value) : undefined;
 
-  // ── Balanç ──
+  // ── Botó: només Balanç ──
   document.getElementById("btn-generar").addEventListener("click", () => {
     const balance = generarBalance(tamanoSelect.value, getSeed());
-    const valid   = validarBalance(balance);
-    const ratios  = calcularRatios(balance);
-    mostrarAlertas(valid);
-    netejarDOM(["historia-empresa"], "innerHTML");
-    netejarDOM(["pyg-resum", "tabla-pyg-completa"], "innerHTML");
-    const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
-    set("tot-activo",          fmt(valid.activo));
-    set("tot-pn",              fmt(valid.pn));
-    set("tot-pasivo",          fmt(valid.pasivo));
-    set("tot-pn-pasivo",       fmt(valid.pn + valid.pasivo));
-    set("ratio-fm",            fmt(ratios.fm));
-    set("ratio-liquidez",      fmt(ratios.liquidez));
-    set("ratio-solvencia",     fmt(ratios.solvencia));
-    set("ratio-endeudamiento", fmt(ratios.endeudamiento));
-    renderTablaAgrupada("tabla-anc", balance.activo_no_corriente);
-    renderTablaAgrupada("tabla-ac",  balance.activo_corriente);
-    renderTablaAgrupada("tabla-pn",  balance.patrimonio_neto);
-    renderTablaAgrupada("tabla-pnc", balance.pasivo_no_corriente);
-    renderTablaAgrupada("tabla-pc",  balance.pasivo_corriente);
+    netejarDOM(["historia-empresa", "pyg-resum", "tabla-pyg-completa"], "innerHTML");
+    renderBalance(balance);
     ocultarTodosLosBloques();
     document.getElementById("bloc-balance").classList.remove("hidden");
     resultado.classList.remove("hidden");
   });
 
-  // ── PyG ──
+  // ── Botó: només PyG ──
   document.getElementById("btn-generar-pyg").addEventListener("click", () => {
     const pyg = generarPyG(getSeed());
     netejarDOM(["historia-empresa", "alertas"], "innerHTML");
     netejarDOM(["tot-activo","tot-pn","tot-pasivo","tot-pn-pasivo",
                 "ratio-fm","ratio-liquidez","ratio-solvencia","ratio-endeudamiento"], "textContent");
     netejarDOM(["tabla-anc","tabla-ac","tabla-pn","tabla-pnc","tabla-pc"], "innerHTML");
-
-    const pygRes = document.getElementById("pyg-resum");
-    if (pygRes) {
-      pygRes.innerHTML =
-        `<h3>Resum de resultats</h3><ul>` +
-        `<li><strong>A.1 Resultat d'explotació (BAII):</strong> ${pyg.BAII >= 0 ? fmt(pyg.BAII) : `(${fmt(-pyg.BAII)})`} €<small class="pyg-desc">Ingressos d'explotació − Despeses d'explotació (sense interessos ni impostos)</small></li>` +
-        `<li><strong>A.2 Resultat financer:</strong> ${pyg.resultFin >= 0 ? fmt(pyg.resultFin) : `(${fmt(-pyg.resultFin)})`} €<small class="pyg-desc">Ingressos financers − Despeses financeres ± Diferències de canvi</small></li>` +
-        `<li><strong>A.3 Resultat abans d'impostos (BAI):</strong> ${pyg.BAI >= 0 ? fmt(pyg.BAI) : `(${fmt(-pyg.BAI)})`} €<small class="pyg-desc">BAII + Resultat financer</small></li>` +
-        `<li><strong>20. Impost sobre beneficis (25 %):</strong> (${fmt(pyg.impost)}) €</li>` +
-        `<li><strong>A.5 Resultat de l'exercici (BN):</strong> ${pyg.BN >= 0 ? fmt(pyg.BN) : `(${fmt(-pyg.BN)})`} €<small class="pyg-desc">BAI − Impost sobre beneficis</small></li>` +
-        `</ul>`;
-    }
-
+    renderPyGResum(pyg);
     renderPyGComplet(pyg);
     ocultarTodosLosBloques();
     document.getElementById("bloc-pyg").classList.remove("hidden");
     resultado.classList.remove("hidden");
   });
 
-  // ── Història ──
+  // ── Botó: Història + Balanç + PyG (tots tres, pàgina completa en vertical) ──
   document.getElementById("btn-generar-historia").addEventListener("click", () => {
-    const balance = generarBalance(tamanoSelect.value, getSeed());
-    const pyg     = generarPyG(getSeed());
-    netejarDOM(["alertas", "pyg-resum", "tabla-pyg-completa"], "innerHTML");
-    netejarDOM(["tot-activo","tot-pn","tot-pasivo","tot-pn-pasivo",
-                "ratio-fm","ratio-liquidez","ratio-solvencia","ratio-endeudamiento"], "textContent");
-    netejarDOM(["tabla-anc","tabla-ac","tabla-pn","tabla-pnc","tabla-pc"], "innerHTML");
-    renderHistoria(generarHistoriaEmpresa(tamanoSelect.value, balance, pyg));
+    const seed    = getSeed();
+    const tamano  = tamanoSelect.value;
+    const balance = generarBalance(tamano, seed);
+    const pyg     = generarPyG(seed);
+
+    // Renderitzar els tres blocs
+    renderHistoria(generarHistoriaEmpresa(tamano, balance, pyg));
+    renderBalance(balance);
+    renderPyGResum(pyg);
+    renderPyGComplet(pyg);
+
+    // Mostrar els tres blocs
     ocultarTodosLosBloques();
     document.getElementById("bloc-historia").classList.remove("hidden");
+    document.getElementById("bloc-balance").classList.remove("hidden");
+    document.getElementById("bloc-pyg").classList.remove("hidden");
     resultado.classList.remove("hidden");
   });
 

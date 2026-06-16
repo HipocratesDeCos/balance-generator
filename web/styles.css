@@ -96,25 +96,74 @@ select, input[type="number"] {
 
 .hidden { display: none !important; }
 
-/* ---- Layout de resultats: flex perque 1 bloc visible ocupa tot l'ample ---- */
+/* ── Layout de resultats ────────────────────────────────────────────────────
+   Cada bloc (historia, balanç, PyG) ocupa el 100% de l'amplada disponible
+   i es mostra en vertical, un sota l'altre.
+   Quan s'activa el mode «només balanç» o «només PyG», el bloc visible
+   segueix ocupant la pàgina completa.
+──────────────────────────────────────────────────────────────────────────── */
 .resultat-grid {
   display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  align-items: flex-start;
+  flex-direction: column;
+  gap: 2rem;
   margin-top: 1.25rem;
 }
+
 .resultat-bloc {
-  flex: 1 1 300px;
+  width: 100%;
   min-width: 0;
 }
-.resultat-bloc h2 { margin-top: 0; margin-bottom: 0.75rem; }
+.resultat-bloc h2 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--border);
+}
 
-/* ---- Historia ---- */
-.historia-empresa { font-size: 0.9rem; line-height: 1.6; max-width: 72ch; }
-.historia-empresa p { margin-top: 0; margin-bottom: 0.75rem; }
+/* ── Separador visual entre blocs ─────────────────────────────────────────── */
+.resultat-bloc + .resultat-bloc:not(.hidden) {
+  padding-top: 1rem;
+  border-top: 1px dashed var(--border);
+}
 
-/* ---- Caixes de totals i ratios ---- */
+/* ── Història ──────────────────────────────────────────────────────────────── */
+.historia-empresa {
+  font-size: 0.95rem;
+  line-height: 1.75;
+  max-width: 80ch;
+}
+.historia-empresa p { margin-top: 0; margin-bottom: 1rem; }
+
+.historia-paragraf { margin-bottom: 0.25rem; }
+
+.etiqueta-clau {
+  display: inline-block;
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fcd34d;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.1rem 0.55rem;
+  margin-bottom: 0.2rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.btn-tag-toggle {
+  display: inline-block;
+  background: #f1f5f9;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 0.8rem;
+  padding: 0.3rem 0.9rem;
+  cursor: pointer;
+  color: #374151;
+  margin-bottom: 1rem;
+}
+.btn-tag-toggle:hover { background: #e2e8f0; }
+
+/* ── Caixes de totals i ràtios ─────────────────────────────────────────────── */
 .totales-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -130,7 +179,7 @@ select, input[type="number"] {
 .total-box ul { list-style: none; padding-left: 0; margin: 0; font-size: 0.9rem; }
 .total-box li { margin-bottom: 0.25rem; }
 
-/* ---- Resum PyG BAII/BAI/BN ---- */
+/* ── Resum PyG ─────────────────────────────────────────────────────────────── */
 .pyg-resum-box {
   margin-bottom: 1.25rem;
 }
@@ -146,7 +195,7 @@ select, input[type="number"] {
   border-left: 2px solid #93c5fd;
 }
 
-/* ---- Tabs ---- */
+/* ── Tabs ──────────────────────────────────────────────────────────────────── */
 .tab-layout {
   display: inline-flex;
   border-radius: 999px;
@@ -170,7 +219,7 @@ select, input[type="number"] {
 }
 .tab-panel h3 { margin-bottom: 0.35rem; }
 
-/* ---- Taules de comptes ---- */
+/* ── Taules de comptes ─────────────────────────────────────────────────────── */
 .tabla-cuentas {
   width: 100%;
   border-collapse: collapse;
@@ -191,8 +240,7 @@ select, input[type="number"] {
   font-variant-numeric: tabular-nums;
 }
 
-/* ---- Taula PyG: files especials ---- */
-/* Separador de bloc (entre explotació / financer / etc.) */
+/* ── Taula PyG ─────────────────────────────────────────────────────────────── */
 .tabla-pyg tr.sep-bloc td {
   padding-top: 0.75rem;
   padding-bottom: 0.2rem;
@@ -203,16 +251,12 @@ select, input[type="number"] {
   border-bottom: 2px solid var(--border);
   background: #f1f5f9;
 }
-
-/* Subtotals de grup (p. ex. Total ingressos d'explotació) */
 .tabla-pyg tr.grup-total td {
   font-weight: 600;
   background: #f8fafc;
   border-top: 1px solid #cbd5e1;
   border-bottom: 1px solid #cbd5e1;
 }
-
-/* BAII */
 .tabla-pyg tr.baii td {
   font-weight: 700;
   background: #eff6ff;
@@ -221,8 +265,6 @@ select, input[type="number"] {
   border-bottom: 2px solid #93c5fd;
   font-size: 0.9rem;
 }
-
-/* BAI */
 .tabla-pyg tr.bai td {
   font-weight: 700;
   background: #f0fdf4;
@@ -231,26 +273,15 @@ select, input[type="number"] {
   border-bottom: 2px solid #86efac;
   font-size: 0.9rem;
 }
-
-/* Benefici net (BN) */
 .tabla-pyg tr.bn td {
   font-weight: 800;
   background: #1e40af;
   color: #ffffff;
   font-size: 0.95rem;
 }
-.tabla-pyg tr.bn td.importe {
-  font-size: 1rem;
-}
+.tabla-pyg tr.bn td.importe { font-size: 1rem; }
 
-/* ---- PyG grid ingressos/despeses (mode anterior, es mante per compatibilitat) ---- */
-.pyg-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.25rem;
-}
-
-/* ---- Alertes ---- */
+/* ── Alertes ───────────────────────────────────────────────────────────────── */
 .alert {
   border-radius: 0.75rem;
   padding: 0.55rem 0.75rem;
@@ -263,7 +294,7 @@ select, input[type="number"] {
 
 .note { font-size: 0.8rem; color: var(--muted); margin-top: 1.25rem; }
 
-/* ---- Footer ---- */
+/* ── Footer ────────────────────────────────────────────────────────────────── */
 .footer {
   border-top: 1px solid rgba(226,232,240,0.7);
   padding: 0.9rem 0 1.3rem;
@@ -272,9 +303,10 @@ select, input[type="number"] {
 .footer small { font-size: 0.8rem; color: var(--muted); }
 .footer a { color: var(--primary); }
 
-/* ---- Responsive ---- */
+/* ── Responsive ────────────────────────────────────────────────────────────── */
 @media (max-width: 640px) {
   .card { padding: 1.25rem 1.1rem; }
   .buttons-row { flex-direction: column; align-items: stretch; }
   .btn-primary, .btn-secondary { flex: none; width: 100%; }
+  .historia-empresa { font-size: 0.9rem; }
 }
