@@ -21,7 +21,7 @@
         <label for="tamano">Mida de l'empresa</label>
         <select id="tamano">
           <option value="micro">Microempresa</option>
-          <option value="pyme" selected>Petita empresa - De 10 a 49 treballadors - Facturació ≤ 10 milions € - Actius totals ≤ 10 milions €</option>
+          <option value="pyme" selected>Petita empresa – De 10 a 49 treballadors – Facturació ≤ 10 M€ – Actius totals ≤ 10 M€</option>
           <option value="mediana">Empresa mitjana</option>
           <option value="grande">Gran empresa</option>
         </select>
@@ -40,11 +40,14 @@
 
     <section id="resultado" class="card hidden">
       <div class="resultat-grid">
+
+        <!-- BLOC HISTORIA -->
         <div class="resultat-bloc" id="bloc-historia">
           <h2>Història de l'empresa</h2>
           <div id="historia-empresa" class="historia-empresa"></div>
         </div>
 
+        <!-- BLOC BALANÇ -->
         <div class="resultat-bloc" id="bloc-balance">
           <h2>Balanç de situació</h2>
           <div id="alertas"></div>
@@ -59,7 +62,6 @@
                 <li><strong>PN + Passiu:</strong> <span id="tot-pn-pasivo"></span> €</li>
               </ul>
             </div>
-
             <div class="total-box">
               <h3>Ràtios financeres</h3>
               <ul>
@@ -82,7 +84,6 @@
             <h3>Actiu corrent</h3>
             <table class="tabla-cuentas" id="tabla-ac"></table>
           </div>
-
           <div id="tab-pn-pasivo" class="tab-panel hidden">
             <h3>Patrimoni net</h3>
             <table class="tabla-cuentas" id="tabla-pn"></table>
@@ -93,35 +94,43 @@
           </div>
         </div>
 
+        <!-- BLOC PÈRDUES I GUANYS -->
         <div class="resultat-bloc" id="bloc-pyg">
           <h2>Compte de pèrdues i guanys</h2>
-          <div class="totales-grid">
-            <div class="total-box">
-              <h3>Resum PyG</h3>
-              <ul>
-                <li><strong>Import net de la xifra de negocis:</strong> <span id="pyg-ventas"></span> €</li>
-                <li><strong>Total despeses:</strong> <span id="pyg-gastos"></span> €</li>
-                <li><strong>Resultat de l'exercici:</strong> <span id="pyg-resultado"></span> €</li>
-              </ul>
-            </div>
+
+          <!-- Resum BAII → BAI → BN -->
+          <div id="pyg-resum" class="total-box pyg-resum-box">
+            <h3>Resum de resultats</h3>
+            <ul>
+              <li>
+                <strong>Resultat d'explotació (BAII):</strong>
+                <span id="pyg-baii"></span> €
+                <small class="pyg-desc">Ingressos d'explotació − Despeses d'explotació (sense interessos ni impostos)</small>
+              </li>
+              <li>
+                <strong>Resultat abans d'impostos (BAI):</strong>
+                <span id="pyg-bai"></span> €
+                <small class="pyg-desc">BAII + Ingressos financers − Despeses financeres</small>
+              </li>
+              <li>
+                <strong>Benefici net (BN):</strong>
+                <span id="pyg-bn"></span> €
+                <small class="pyg-desc">BAI − Impost sobre societats (IS)</small>
+              </li>
+            </ul>
           </div>
 
-          <div class="pyg-grid">
-            <div>
-              <h3>Ingressos</h3>
-              <table class="tabla-cuentas" id="tabla-pyg-ing"></table>
-            </div>
-            <div>
-              <h3>Despeses</h3>
-              <table class="tabla-cuentas" id="tabla-pyg-gas"></table>
-            </div>
+          <!-- Taula completa -->
+          <div id="pyg-taula-completa">
+            <table class="tabla-cuentas tabla-pyg" id="tabla-pyg-completa"></table>
           </div>
         </div>
+
       </div>
 
       <p class="note">
-        Aquesta web és una versió estàtica del generador. El backend en Python/Streamlit amb la mateixa lògica
-        està disponible al repositori <a href="https://github.com/HipocratesDeCos/balance-generator" target="_blank" rel="noopener">balance-generator</a>.
+        Aquesta web és una versió estàtica del generador. El backend en Python/Streamlit està disponible al repositori
+        <a href="https://github.com/HipocratesDeCos/balance-generator" target="_blank" rel="noopener">balance-generator</a>.
       </p>
     </section>
   </main>

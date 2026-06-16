@@ -10,9 +10,7 @@
   --shadow-soft: 0 10px 25px rgba(15, 23, 42, 0.08);
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
@@ -29,33 +27,19 @@ body {
 }
 
 .topbar {
-  background: rgba(255, 255, 255, 0.9);
-  border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+  background: rgba(255,255,255,0.9);
+  border-bottom: 1px solid rgba(226,232,240,0.8);
   backdrop-filter: blur(12px);
   position: sticky;
   top: 0;
   z-index: 10;
 }
 
-.topbar .container {
-  padding: 1rem 1.25rem;
-}
+.topbar .container { padding: 1rem 1.25rem; }
+.topbar h1 { margin: 0; font-size: 1.5rem; color: #1f2937; }
+.subtitle { margin: 0.15rem 0 0; font-size: 0.9rem; color: var(--muted); }
 
-.topbar h1 {
-  margin: 0;
-  font-size: 1.5rem;
-  color: #1f2937;
-}
-
-.subtitle {
-  margin: 0.15rem 0 0;
-  font-size: 0.9rem;
-  color: var(--muted);
-}
-
-main.container {
-  padding: 1.5rem 1.25rem 2.5rem;
-}
+main.container { padding: 1.5rem 1.25rem 2.5rem; }
 
 .card {
   background: var(--surface);
@@ -63,27 +47,14 @@ main.container {
   box-shadow: var(--shadow-soft);
   padding: 1.5rem 1.75rem;
   margin-bottom: 1.5rem;
-  border: 1px solid rgba(226, 232, 240, 0.9);
+  border: 1px solid rgba(226,232,240,0.9);
 }
+.card h2 { margin-top: 0; }
 
-.card h2 {
-  margin-top: 0;
-}
+.form-row { display: flex; flex-direction: column; margin-bottom: 0.75rem; }
+.form-row label { font-size: 0.9rem; font-weight: 500; margin-bottom: 0.25rem; }
 
-.form-row {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 0.75rem;
-}
-
-.form-row label {
-  font-size: 0.9rem;
-  font-weight: 500;
-  margin-bottom: 0.25rem;
-}
-
-select,
-input[type="number"] {
+select, input[type="number"] {
   border-radius: 0.5rem;
   border: 1px solid var(--border);
   padding: 0.45rem 0.6rem;
@@ -99,8 +70,7 @@ input[type="number"] {
   margin-top: 0.35rem;
 }
 
-.btn-primary,
-.btn-secondary {
+.btn-primary, .btn-secondary {
   flex: 1 1 0;
   border: none;
   border-radius: 999px;
@@ -113,37 +83,20 @@ input[type="number"] {
   justify-content: center;
   white-space: nowrap;
 }
-
 .btn-primary {
   background: var(--primary);
   color: #fff;
-  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.25);
+  box-shadow: 0 8px 18px rgba(37,99,235,0.25);
 }
+.btn-primary:hover { background: #1d4ed8; }
+.btn-secondary { background: #e5e7eb; color: #374151; }
+.btn-secondary:hover { background: #d1d5db; }
 
-.btn-primary:hover {
-  background: #1d4ed8;
-}
+.helper-text { font-size: 0.85rem; color: var(--muted); margin-top: 0.5rem; }
 
-.btn-secondary {
-  background: #e5e7eb;
-  color: #374151;
-}
+.hidden { display: none !important; }
 
-.btn-secondary:hover {
-  background: #d1d5db;
-}
-
-.helper-text {
-  font-size: 0.85rem;
-  color: var(--muted);
-  margin-top: 0.5rem;
-}
-
-.hidden {
-  display: none !important;
-}
-
-/* El grid usa columnas automaticas: cuando solo hay 1 bloque visible ocupa todo */
+/* ---- Layout de resultats: flex perque 1 bloc visible ocupa tot l'ample ---- */
 .resultat-grid {
   display: flex;
   flex-wrap: wrap;
@@ -151,57 +104,49 @@ input[type="number"] {
   align-items: flex-start;
   margin-top: 1.25rem;
 }
-
 .resultat-bloc {
   flex: 1 1 300px;
   min-width: 0;
 }
+.resultat-bloc h2 { margin-top: 0; margin-bottom: 0.75rem; }
 
-.resultat-bloc h2 {
-  margin-top: 0;
-  margin-bottom: 0.75rem;
-}
+/* ---- Historia ---- */
+.historia-empresa { font-size: 0.9rem; line-height: 1.6; max-width: 72ch; }
+.historia-empresa p { margin-top: 0; margin-bottom: 0.75rem; }
 
-.historia-empresa {
-  font-size: 0.9rem;
-  line-height: 1.6;
-  max-width: 72ch;
-}
-
-.historia-empresa p {
-  margin-top: 0;
-  margin-bottom: 0.75rem;
-}
-
+/* ---- Caixes de totals i ratios ---- */
 .totales-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 0.75rem;
   margin: 0.75rem 0 1.25rem;
 }
-
 .total-box {
   background: var(--primary-soft);
   border-radius: 0.9rem;
   padding: 0.8rem 0.9rem;
 }
+.total-box h3 { margin-top: 0; margin-bottom: 0.35rem; }
+.total-box ul { list-style: none; padding-left: 0; margin: 0; font-size: 0.9rem; }
+.total-box li { margin-bottom: 0.25rem; }
 
-.total-box h3 {
-  margin-top: 0;
-  margin-bottom: 0.35rem;
+/* ---- Resum PyG BAII/BAI/BN ---- */
+.pyg-resum-box {
+  margin-bottom: 1.25rem;
+}
+.pyg-resum-box ul li {
+  margin-bottom: 0.5rem;
+}
+.pyg-desc {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-top: 0.1rem;
+  padding-left: 0.5rem;
+  border-left: 2px solid #93c5fd;
 }
 
-.total-box ul {
-  list-style: none;
-  padding-left: 0;
-  margin: 0;
-  font-size: 0.9rem;
-}
-
-.total-box li {
-  margin-bottom: 0.15rem;
-}
-
+/* ---- Tabs ---- */
 .tab-layout {
   display: inline-flex;
   border-radius: 999px;
@@ -209,7 +154,6 @@ input[type="number"] {
   background: #eef2ff;
   margin-bottom: 0.75rem;
 }
-
 .tab {
   border: none;
   background: transparent;
@@ -219,105 +163,118 @@ input[type="number"] {
   cursor: pointer;
   color: #4b5563;
 }
-
 .tab.active {
   background: #ffffff;
   color: #1f2937;
-  box-shadow: 0 3px 8px rgba(148, 163, 184, 0.4);
+  box-shadow: 0 3px 8px rgba(148,163,184,0.4);
 }
+.tab-panel h3 { margin-bottom: 0.35rem; }
 
-.tab-panel h3 {
-  margin-bottom: 0.35rem;
-}
-
+/* ---- Taules de comptes ---- */
 .tabla-cuentas {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 0.75rem;
   font-size: 0.85rem;
 }
-
-.tabla-cuentas th,
-.tabla-cuentas td {
+.tabla-cuentas th, .tabla-cuentas td {
   padding: 0.3rem 0.45rem;
   border-bottom: 1px solid var(--border);
 }
-
 .tabla-cuentas th {
   text-align: left;
   font-weight: 600;
   background: #f9fafb;
 }
-
 .tabla-cuentas td.importe {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
+/* ---- Taula PyG: files especials ---- */
+/* Separador de bloc (entre explotació / financer / etc.) */
+.tabla-pyg tr.sep-bloc td {
+  padding-top: 0.75rem;
+  padding-bottom: 0.2rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  border-bottom: 2px solid var(--border);
+  background: #f1f5f9;
+}
+
+/* Subtotals de grup (p. ex. Total ingressos d'explotació) */
+.tabla-pyg tr.grup-total td {
+  font-weight: 600;
+  background: #f8fafc;
+  border-top: 1px solid #cbd5e1;
+  border-bottom: 1px solid #cbd5e1;
+}
+
+/* BAII */
+.tabla-pyg tr.baii td {
+  font-weight: 700;
+  background: #eff6ff;
+  color: #1e40af;
+  border-top: 2px solid #93c5fd;
+  border-bottom: 2px solid #93c5fd;
+  font-size: 0.9rem;
+}
+
+/* BAI */
+.tabla-pyg tr.bai td {
+  font-weight: 700;
+  background: #f0fdf4;
+  color: #166534;
+  border-top: 2px solid #86efac;
+  border-bottom: 2px solid #86efac;
+  font-size: 0.9rem;
+}
+
+/* Benefici net (BN) */
+.tabla-pyg tr.bn td {
+  font-weight: 800;
+  background: #1e40af;
+  color: #ffffff;
+  font-size: 0.95rem;
+}
+.tabla-pyg tr.bn td.importe {
+  font-size: 1rem;
+}
+
+/* ---- PyG grid ingressos/despeses (mode anterior, es mante per compatibilitat) ---- */
 .pyg-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 1.25rem;
 }
 
+/* ---- Alertes ---- */
 .alert {
   border-radius: 0.75rem;
   padding: 0.55rem 0.75rem;
   font-size: 0.85rem;
   margin-bottom: 0.7rem;
 }
+.alert.ok { background: #ecfdf5; color: #166534; border: 1px solid #bbf7d0; }
+.alert.error { background: #fef2f2; color: var(--danger); border: 1px solid #fecaca; }
+.alert ul { margin: 0.25rem 0 0; padding-left: 1.25rem; }
 
-.alert.ok {
-  background: #ecfdf5;
-  color: #166534;
-  border: 1px solid #bbf7d0;
-}
+.note { font-size: 0.8rem; color: var(--muted); margin-top: 1.25rem; }
 
-.alert.error {
-  background: #fef2f2;
-  color: var(--danger);
-  border: 1px solid #fecaca;
-}
-
-.alert ul {
-  margin: 0.25rem 0 0;
-  padding-left: 1.25rem;
-}
-
-.note {
-  font-size: 0.8rem;
-  color: var(--muted);
-  margin-top: 1.25rem;
-}
-
+/* ---- Footer ---- */
 .footer {
-  border-top: 1px solid rgba(226, 232, 240, 0.7);
+  border-top: 1px solid rgba(226,232,240,0.7);
   padding: 0.9rem 0 1.3rem;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255,255,255,0.9);
 }
+.footer small { font-size: 0.8rem; color: var(--muted); }
+.footer a { color: var(--primary); }
 
-.footer small {
-  font-size: 0.8rem;
-  color: var(--muted);
-}
-
-.footer a {
-  color: var(--primary);
-}
-
+/* ---- Responsive ---- */
 @media (max-width: 640px) {
-  .card {
-    padding: 1.25rem 1.1rem;
-  }
-
-  .buttons-row {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .btn-primary,
-  .btn-secondary {
-    flex: none;
-    width: 100%;
-  }
+  .card { padding: 1.25rem 1.1rem; }
+  .buttons-row { flex-direction: column; align-items: stretch; }
+  .btn-primary, .btn-secondary { flex: none; width: 100%; }
 }
