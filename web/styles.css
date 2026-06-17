@@ -124,6 +124,14 @@ select, input[type="number"] {
   border-top: 1px dashed var(--border);
 }
 
+/* ── Balanç i PyG: amplada reduïda un 20% i centrats ──────────────────────── */
+#bloc-balance,
+#bloc-pyg {
+  max-width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* ── Història ──────────────────────────────────────────────────────────────── */
 
 /* Contenidor centrat a la pantalla */
@@ -338,4 +346,5 @@ select, input[type="number"] {
   .buttons-row { flex-direction: column; align-items: stretch; }
   .btn-primary, .btn-secondary { flex: none; width: 100%; }
   .historia-empresa { font-size: 0.9rem; }
+  #bloc-balance, #bloc-pyg { max-width: 100%; }  /* mòbil: amplada completa */
 }
