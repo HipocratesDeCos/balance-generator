@@ -99,8 +99,6 @@ select, input[type="number"] {
 /* ── Layout de resultats ────────────────────────────────────────────────────
    Cada bloc (historia, balanç, PyG) ocupa el 100% de l'amplada disponible
    i es mostra en vertical, un sota l'altre.
-   Quan s'activa el mode «només balanç» o «només PyG», el bloc visible
-   segueix ocupant la pàgina completa.
 ──────────────────────────────────────────────────────────────────────────── */
 .resultat-grid {
   display: flex;
@@ -127,12 +125,43 @@ select, input[type="number"] {
 }
 
 /* ── Història ──────────────────────────────────────────────────────────────── */
+
+/* Contenidor centrat a la pantalla */
+#bloc-historia {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#bloc-historia h2 {
+  width: 100%;
+  max-width: 72ch;
+  text-align: left;
+}
+
 .historia-empresa {
   font-size: 0.95rem;
   line-height: 1.75;
-  max-width: 80ch;
+  max-width: 72ch;          /* amplada de lectura còmoda */
+  width: 100%;
+  margin: 0 auto;           /* centrat horitzontal */
+  text-align: justify;      /* text justificat */
+  hyphens: auto;            /* guions automàtics per evitar buits excessius */
 }
-.historia-empresa p { margin-top: 0; margin-bottom: 1rem; }
+
+.historia-empresa p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  text-align: justify;
+}
+
+/* Línies referenciades al material PAU — subratllat activat pel botó */
+.referencia-material.subratllat {
+  text-decoration: underline;
+  text-decoration-color: #2563eb;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
 
 .historia-paragraf { margin-bottom: 0.25rem; }
 
