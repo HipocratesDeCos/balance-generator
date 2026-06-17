@@ -70,6 +70,89 @@ const MERCATS_EXPORTACIÓ = [
   ["Bèlgica", "Suècia", "Mèxic"],
 ];
 
+// ─── Frases PAU associades a cada paràgraf (índex 0-6) ───────────────────────
+// Cada entrada és un array de substrings exactes que cal subratllar.
+// S'han d'escriure tal com apareixen als textos de les VARIANTS_*.
+const FRASES_PAU = [
+  // P0 — Constitució i forma jurídica
+  [
+    "tipus de responsabilitat que volien assumir els fundadors i a les necessitats de capital del projecte, dos dels criteris clau que el marc jurídic mercantil preveu a l'hora d'escollir la figura legal més adequada",
+    "La forma jurídica escollida va permetre limitar la responsabilitat dels socis al capital aportat i facilitar l'accés a finançament extern",
+    "una anàlisi dels factors industrials i comercials de l'entorn",
+  ],
+  // P1 — Dimensió
+  [
+    "determinada pel nombre de treballadors, el volum d'actius i la xifra de negocis, condiciona directament la seva capacitat productiva i la política d'inversions a llarg termini",
+    "s'emmarca en el segment de les petites i mitjanes empreses",
+    "és el resultat de diverses decisions d'ampliació de capacitat productiva",
+  ],
+  // P2 — Mercat i internacionalització
+  [
+    "estratègia de desenvolupament de mercat que va permetre compensar la saturació de la demanda domèstica sense alterar el producte principal",
+    "L'àmbit geogràfic de",
+    "La internacionalització ha estat un dels eixos estratègics",
+  ],
+  // P3 — Ansoff
+  [
+    "intensificar les vendes del seu catàleg actual entre la base de clients ja existent i per captar nous compradors dins del mateix mercat, sense modificar ni el producte ni el segment al qual es dirigia",
+    "ampliar la gamma",
+    "expansió geogràfica cap a nous territoris on el producte era pràcticament desconegut, sense alterar les característiques tècniques de la seva oferta principal",
+    "llançar una línia de serveis de manteniment preventiu adreçada a clients industrials d'un segment completament diferent del que havia treballat fins aleshores",
+  ],
+  // P4 — Porter
+  [
+    "diferenciació escassa respecte als que ofereixen una dotzena de competidors directes",
+    "exigeixin any rere any revisions a la baixa dels preus, amenaçant de canviar de proveïdor",
+    "cert nivell de certificació i traçabilitat que la majoria de competidors no ofereixen",
+    "costos de substitució associats a la integració",
+  ],
+  // P5 — RSC i ODS
+  [
+    "balanç social que recull de manera quantificada les seves actuacions socials i mediambientals",
+    "ODS 9",
+    "ODS 12",
+    "ODS 7",
+    "Objectius de Desenvolupament Sostenible",
+    "responsabilitat social corporativa",
+    "codi de conducta intern",
+  ],
+  // P6 — Innovació
+  [
+    "recerca, el desenvolupament i la innovació (RDI)",
+    "metodologia Lean Startup",
+    "productes mínims viables (PMV)",
+    "anàlisi DAFO per identificar les seves fortaleses i debilitats internes, així com les oportunitats i amenaces de l'entorn",
+    "model Canvas per revisar la seva proposta de valor",
+    "llenç de model de negoci (Canvas)",
+    "matriu d'Ansoff",
+  ],
+];
+
+// ─── Helper: embolcalla frases PAU amb <span class="referencia-material"> ────
+function marcarFrasesPAU(text, frases) {
+  // Escapem el text pla per convertir-lo en HTML segur i després
+  // substituïm cada frase per una versió embolcallada.
+  let html = text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+
+  frases.forEach((frase) => {
+    const escaped = frase
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+    // Substituïm la primera ocurrència (pot ser que alguna no aparegui si la variant
+    // escollida no conté aquella frase concreta; en tal cas, no passa res).
+    html = html.replace(
+      escaped,
+      `<span class="referencia-material">${escaped}</span>`
+    );
+  });
+
+  return html;
+}
+
 const ANSOFF_ESTRATEGIES = [
   {
     quadrant: "penetració de mercat",
@@ -102,7 +185,7 @@ const PORTER_CLIENTS = [
   {
     intensitat: "moderat",
     text: (producte) =>
-      `Tot i que existeixen alternatives en el mercat, els ${producte} de l'empresa compten amb un nivell de certificació i traçabilitat que la majoria de competidors no ofereixen. Això permet mantenir una certa capacitat de fixació de preus, si bé els clients de major volum negocien habitualment descomptes que comprimen els marges de contribució.`,
+      `Tot i que existeixen alternatives en el mercat, els ${producte} de l'empresa compten amb un cert nivell de certificació i traçabilitat que la majoria de competidors no ofereixen. Això permet mantenir una certa capacitat de fixació de preus, si bé els clients de major volum negocien habitualment descomptes que comprimen els marges de contribució.`,
   },
   {
     intensitat: "baix",
@@ -112,8 +195,6 @@ const PORTER_CLIENTS = [
 ];
 
 // ─── Variants de paràgrafs PAU per barrejar al relat ─────────────────────────
-// Cada array conté diverses opcions; la funció en tria una aleatòriament.
-
 const VARIANTS_CONSTITUCIO = [
   (nom, formaJuridica, capitalInici, sector, ubicacio) =>
     `L'any 2003, un grup de socis va constituir ${nom} com a ${formaJuridica} amb un capital social inicial de ${capitalInici}. La tria d'aquesta forma jurídica va respondre principalment al tipus de responsabilitat que volien assumir els fundadors i a les necessitats de capital del projecte, dos dels criteris clau que el marc jurídic mercantil preveu a l'hora d'escollir la figura legal més adequada. Des de llavors, la seu social es troba a ${ubicacio}, on l'empresa s'ha dedicat a la fabricació i comercialització de ${sector}.`,
@@ -147,7 +228,7 @@ const VARIANTS_RSC = [
   (nom) =>
     `La responsabilitat social corporativa és part integrant de la cultura de ${nom}. L'empresa disposa d'un codi de conducta intern i elabora anualment un balanç social que avalua el seu impacte en la plantilla, el territori i el medi ambient. Les seves actuacions s'alineen amb els ODS 7 (energia neta i assequible), 9 (innovació i indústria sostenible) i 12 (consum i producció responsables), i formen part d'una estratègia de valor afegit que, al mateix temps, millora la imatge de marca davant clients i inversors.`,
   (nom) =>
-    `${nom} entén l'empresa no tan sols com a generadora de beneficis, sinó com a agent econòmic i social amb responsabilitats envers la plantilla, la comunitat local i el medi ambient. Per aquest motiu, ha posat en marxa polítiques d'igualtat de gènere, programes de conciliació i plans de reducció de l'empremta de carboni, tot alineant-se amb els ODS aprovats per les Nacions Unides el 2015 i orientats a aconseguir un món més sostenible i equitatiu per al 2030.`,
+    `${nom} entén l'empresa no tan sols com a generadora de beneficis, sinó com a agent econòmic i social amb responsabilitats envers la plantilla, la comunitat local i el medi ambient. Per aquest motiu, ha posat en marxa polítiques d'igualtat de gènere, programes de conciliació i plans de reducció de l'empremta de carboni, tot alineant-se amb els Objectius de Desenvolupament Sostenible aprovats per les Nacions Unides el 2015 i orientats a aconseguir un món més sostenible i equitatiu per al 2030.`,
 ];
 
 const VARIANTS_INNOVACIO = [
@@ -303,7 +384,6 @@ function generarHistoriaEmpresa(tamano, balance, pyg) {
   const formaJuridica = emp.nom.includes("S.A.") ? "societat anònima" : "societat de responsabilitat limitada";
   const capitalInici  = emp.nom.includes("S.A.") ? "60.000 €" : "12.000 €";
 
-  // Selecció aleatòria de variant per a cada bloc
   const iVC = rndInt(rand, 0, VARIANTS_CONSTITUCIO.length - 1);
   const iVD = rndInt(rand, 0, VARIANTS_DIMENSIO.length - 1);
   const iVM = rndInt(rand, 0, VARIANTS_MERCAT.length - 1);
@@ -312,26 +392,12 @@ function generarHistoriaEmpresa(tamano, balance, pyg) {
   const pct = rndInt(rand, 45, 70);
 
   const p = [];
-
-  // P1 — Constitució i forma jurídica (barrejat amb localització i sector)
   p.push(VARIANTS_CONSTITUCIO[iVC](emp.nom, formaJuridica, capitalInici, emp.sector, emp.ubicacio));
-
-  // P2 — Dimensió (treballadors, facturació, estructura financera)
   p.push(VARIANTS_DIMENSIO[iVD](emp.nom, treballadors, facturacio, activo, pn, ratios));
-
-  // P3 — Àmbit geogràfic i internacionalització
   p.push(VARIANTS_MERCAT[iVM](emp.nom, pct, mercats[0], mercats[1], mercats[2], emp.ubicacio));
-
-  // P4 — Estratègia de creixement (Matriu d'Ansoff), barrejada amb el relat empresarial
   p.push(ansoff.paragraf(emp.nom, emp.producte));
-
-  // P5 — Forces de Porter (poder de negociació dels clients), integrat al relat
   p.push(porter.text(emp.producte));
-
-  // P6 — RSC i ODS (balanç social, codi de conducta, ODS 7/9/12)
   p.push(VARIANTS_RSC[iVR](emp.nom));
-
-  // P7 — Innovació: RDI, Lean Startup, PMV, Canvas o DAFO (varia cada cop)
   p.push(VARIANTS_INNOVACIO[iVI](emp.nom, emp.producte));
 
   return p;
@@ -389,34 +455,32 @@ function renderTablaAgrupada(elementId, cuentas) {
   el.innerHTML = html;
 }
 
+// ─── renderHistoria: subratllat intel·ligent per frases PAU ──────────────────
 function renderHistoria(paragrafos) {
   const cont = document.getElementById("historia-empresa");
   if (!cont) return;
   cont.innerHTML = "";
 
-  // Índexs dels paràgrafs que fan referència directa al material PAU
-  // (tots en fan, però marquem els que contenen terminologia curricular explícita)
-  const REF_PAU = [0, 1, 2, 3, 4, 5, 6]; // tots set paràgrafs
-
+  // Botó: toggle subratllat únicament sobre els <span class="referencia-material">
   const btn = document.createElement("button");
   btn.className = "btn-tag-toggle";
   btn.textContent = "Mostrar referències al material";
+  let actiu = false;
   btn.addEventListener("click", () => {
-    cont.querySelectorAll(".referencia-material").forEach((el) => {
-      el.classList.toggle("subratllat");
+    actiu = !actiu;
+    cont.querySelectorAll("span.referencia-material").forEach((span) => {
+      span.classList.toggle("subratllat", actiu);
     });
+    btn.textContent = actiu ? "Amagar referències al material" : "Mostrar referències al material";
   });
   cont.appendChild(btn);
 
   paragrafos.forEach((text, i) => {
-    const wrapper = document.createElement("div");
-    wrapper.className = "historia-paragraf" + (REF_PAU.includes(i) ? " referencia-material" : "");
-
     const p = document.createElement("p");
-    p.textContent = text;
-
-    wrapper.appendChild(p);
-    cont.appendChild(wrapper);
+    // Embolcallem les frases PAU d'aquest paràgraf amb <span class="referencia-material">
+    const frases = FRASES_PAU[i] || [];
+    p.innerHTML = marcarFrasesPAU(text, frases);
+    cont.appendChild(p);
   });
 }
 
@@ -549,7 +613,6 @@ function inicializar() {
   const resultado    = document.getElementById("resultado");
   const getSeed = () => semillaInput.value ? Number(semillaInput.value) : undefined;
 
-  // ── Botó: només Balanç ──
   document.getElementById("btn-generar").addEventListener("click", () => {
     const balance = generarBalance(tamanoSelect.value, getSeed());
     netejarDOM(["historia-empresa", "pyg-resum", "tabla-pyg-completa"], "innerHTML");
@@ -559,7 +622,6 @@ function inicializar() {
     resultado.classList.remove("hidden");
   });
 
-  // ── Botó: només PyG ──
   document.getElementById("btn-generar-pyg").addEventListener("click", () => {
     const pyg = generarPyG(getSeed());
     netejarDOM(["historia-empresa", "alertas"], "innerHTML");
@@ -573,7 +635,6 @@ function inicializar() {
     resultado.classList.remove("hidden");
   });
 
-  // ── Botó: Història + Balanç + PyG (tots tres) ──
   document.getElementById("btn-generar-historia").addEventListener("click", () => {
     const seed    = getSeed();
     const tamano  = tamanoSelect.value;
