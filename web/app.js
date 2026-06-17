@@ -111,6 +111,54 @@ const PORTER_CLIENTS = [
   },
 ];
 
+// ─── Variants de paràgrafs PAU per barrejar al relat ─────────────────────────
+// Cada array conté diverses opcions; la funció en tria una aleatòriament.
+
+const VARIANTS_CONSTITUCIO = [
+  (nom, formaJuridica, capitalInici, sector, ubicacio) =>
+    `L'any 2003, un grup de socis va constituir ${nom} com a ${formaJuridica} amb un capital social inicial de ${capitalInici}. La tria d'aquesta forma jurídica va respondre principalment al tipus de responsabilitat que volien assumir els fundadors i a les necessitats de capital del projecte, dos dels criteris clau que el marc jurídic mercantil preveu a l'hora d'escollir la figura legal més adequada. Des de llavors, la seu social es troba a ${ubicacio}, on l'empresa s'ha dedicat a la fabricació i comercialització de ${sector}.`,
+  (nom, formaJuridica, capitalInici, sector, ubicacio) =>
+    `Fundada el 2003 a ${ubicacio}, ${nom} va néixer com a ${formaJuridica} amb un capital inicial de ${capitalInici}, destinada a la producció de ${sector}. La forma jurídica escollida va permetre limitar la responsabilitat dels socis al capital aportat i facilitar l'accés a finançament extern, aspectes que van resultar determinants en les primeres fases del projecte empresarial.`,
+  (nom, formaJuridica, capitalInici, sector, ubicacio) =>
+    `${nom} va ser constituïda el 2003 sota la forma de ${formaJuridica}, amb un capital social de ${capitalInici} aportat pels socis fundadors. La localització a ${ubicacio} va ser resultat d'una anàlisi dels factors industrials i comercials de l'entorn, entre els quals destacaven la proximitat als proveïdors de matèries primeres i l'accés a una xarxa logística àgil per distribuir ${sector}.`,
+];
+
+const VARIANTS_DIMENSIO = [
+  (nom, treballadors, facturacio, activo, pn, ratios) =>
+    `Avui, ${nom} és una empresa de dimensió mitjana en el seu sector: compta amb ${treballadors} treballadors i una facturació anual propera als ${formatearNumero(facturacio)} €. La dimensió de l'empresa, determinada pel nombre de treballadors, el volum d'actius i la xifra de negocis, condiciona directament la seva capacitat productiva i la política d'inversions a llarg termini. L'actiu total assoleix els ${formatearNumero(activo)} €, amb un patrimoni net de ${formatearNumero(pn)} €, el que reflecteix una estructura ${ratios.endeudamiento > 2 ? "on el finançament aliè té un pes notable sobre els recursos propis" : "on els fons propis mantenen un pes rellevant respecte al deute"}.`,
+  (nom, treballadors, facturacio, activo, pn, ratios) =>
+    `Amb una plantilla de ${treballadors} persones i una facturació anual de ${formatearNumero(facturacio)} €, ${nom} s'emmarca en el segment de les petites i mitjanes empreses. El total d'actius de ${formatearNumero(activo)} € i un patrimoni net de ${formatearNumero(pn)} € configuren una base patrimonial ${ratios.endeudamiento > 2 ? "amb endeutament elevat, cosa que exigeix una gestió acurada dels fluxos de tresoreria" : "sòlida, que proporciona a l'empresa capacitat per afrontar noves inversions sense dependre exclusivament de finançament extern"}.`,
+  (nom, treballadors, facturacio, activo, pn, ratios) =>
+    `La dimensió actual de ${nom} —${treballadors} empleats i ${formatearNumero(facturacio)} € de facturació— és el resultat de diverses decisions d'ampliació de capacitat productiva preses al llarg dels anys. L'estructura financera, amb un actiu total de ${formatearNumero(activo)} € i un patrimoni net de ${formatearNumero(pn)} €, mostra una empresa ${ratios.endeudamiento > 2 ? "que ha crescut recolzant-se en finançament extern, cosa habitual en processos d'expansió accelerada" : "que ha prioritzat el creixement intern finançat en bona part amb recursos propis i reserves acumulades"}.`,
+];
+
+const VARIANTS_MERCAT = [
+  (nom, pct, m0, m1, m2, ubicacio) =>
+    `Des dels primers exercicis, la companyia ha mantingut una vocació clara d'obertura exterior. Avui, gairebé el ${pct}% de la producció es destina a clients situats fora de les fronteres espanyoles: el principal mercat estranger és ${m0}, seguit de ${m1} i, des de fa dos anys, d'${m2}. Les negociacions comercials internacionals es gestionen directament des de la seu de ${ubicacio} per un departament especialitzat de quatre persones.`,
+  (nom, pct, m0, m1, m2, ubicacio) =>
+    `L'àmbit geogràfic de ${nom} s'ha ampliat progressivament des de l'escala local fins als mercats internacionals. Avui, el ${pct}% de la producció s'exporta, principalment cap a ${m0} i ${m1}, mercats als quals s'ha sumat recentment ${m2}. Aquest creixement extern és el resultat d'una estratègia de desenvolupament de mercat que va permetre compensar la saturació de la demanda domèstica sense alterar el producte principal.`,
+  (nom, pct, m0, m1, m2, ubicacio) =>
+    `La internacionalització ha estat un dels eixos estratègics de ${nom}: el ${pct}% de la facturació prové de clients a l'estranger, amb presència consolidada a ${m0}, ${m1} i ${m2}. El departament comercial de ${ubicacio} gestiona aquests mercats de forma directa, sense intermediaris, cosa que permet a l'empresa mantenir una relació propera amb els compradors i adaptar l'oferta a les especificitats de cada territori.`,
+];
+
+const VARIANTS_RSC = [
+  (nom) =>
+    `Conscient del seu impacte en el territori on opera, ${nom} publica cada any un balanç social que recull de manera quantificada les seves actuacions socials i mediambientals: des de la reducció dels residus industrials i el consum d'energia fins a les polítiques d'igualtat i els plans de formació contínua de la plantilla. L'empresa ha alineat les seves pràctiques amb els Objectius de Desenvolupament Sostenible, especialment els relatius a la construcció d'infraestructures resilients i la industrialització sostenible (ODS 9), i els de garantir models de consum i producció responsables (ODS 12).`,
+  (nom) =>
+    `La responsabilitat social corporativa és part integrant de la cultura de ${nom}. L'empresa disposa d'un codi de conducta intern i elabora anualment un balanç social que avalua el seu impacte en la plantilla, el territori i el medi ambient. Les seves actuacions s'alineen amb els ODS 7 (energia neta i assequible), 9 (innovació i indústria sostenible) i 12 (consum i producció responsables), i formen part d'una estratègia de valor afegit que, al mateix temps, millora la imatge de marca davant clients i inversors.`,
+  (nom) =>
+    `${nom} entén l'empresa no tan sols com a generadora de beneficis, sinó com a agent econòmic i social amb responsabilitats envers la plantilla, la comunitat local i el medi ambient. Per aquest motiu, ha posat en marxa polítiques d'igualtat de gènere, programes de conciliació i plans de reducció de l'empremta de carboni, tot alineant-se amb els ODS aprovats per les Nacions Unides el 2015 i orientats a aconseguir un món més sostenible i equitatiu per al 2030.`,
+];
+
+const VARIANTS_INNOVACIO = [
+  (nom, producte) =>
+    `Paral·lelament a la seva activitat productiva, ${nom} ha apostat per la recerca, el desenvolupament i la innovació (RDI) com a motor de competitivitat. En els darrers anys, ha aplicat la metodologia Lean Startup per validar nous productes al mercat amb la mínima inversió possible: el llançament de prototips i productes mínims viables (PMV) ha permès obtenir retroalimentació dels clients en fases molt primerenques del desenvolupament, reduint el risc d'apostes errònies i accelerant la corba d'aprenentatge de l'equip.`,
+  (nom, producte) =>
+    `La capacitat d'innovació és un dels actius intangibles més valorats de ${nom}. L'empresa utilitza l'anàlisi DAFO per identificar les seves fortaleses i debilitats internes, així com les oportunitats i amenaces de l'entorn, i a partir d'aquí defineix les línies d'inversió en nou producte. Recentment, ha explorat el model Canvas per revisar la seva proposta de valor, els canals de distribució i les relacions amb els clients, amb l'objectiu de detectar àrees de millora en el model de negoci actual.`,
+  (nom, producte) =>
+    `Per mantenir-se competitiva, ${nom} ha integrat eines d'innovació estratègica en el seu procés de planificació. L'ús del llenç de model de negoci (Canvas) ha facilitat la identificació dels segments de clients prioritaris i les activitats clau que sustenten la proposta de valor. Al mateix temps, l'empresa ha explorat estratègies de diversificació seguint la matriu d'Ansoff, valorant la possibilitat d'accedir a nous mercats amb una gamma ampliada de ${producte} adaptats a les demandes emergents del sector.`,
+];
+
 // ─── Helpers aleatoris ────────────────────────────────────────────────────────
 function mulberry32(a) {
   return function () {
@@ -229,7 +277,7 @@ function generarPyG(seed) {
 
 // ─── Generació de la història ─────────────────────────────────────────────────
 function generarHistoriaEmpresa(tamano, balance, pyg) {
-  const rand = crearRandom(undefined);
+  const rand  = crearRandom(undefined);
   const iEmp  = rndInt(rand, 0, EMPRESES_FICTÍCIES.length - 1);
   const iMerc = rndInt(rand, 0, MERCATS_EXPORTACIÓ.length - 1);
   const iAns  = rndInt(rand, 0, ANSOFF_ESTRATEGIES.length - 1);
@@ -255,36 +303,36 @@ function generarHistoriaEmpresa(tamano, balance, pyg) {
   const formaJuridica = emp.nom.includes("S.A.") ? "societat anònima" : "societat de responsabilitat limitada";
   const capitalInici  = emp.nom.includes("S.A.") ? "60.000 €" : "12.000 €";
 
+  // Selecció aleatòria de variant per a cada bloc
+  const iVC = rndInt(rand, 0, VARIANTS_CONSTITUCIO.length - 1);
+  const iVD = rndInt(rand, 0, VARIANTS_DIMENSIO.length - 1);
+  const iVM = rndInt(rand, 0, VARIANTS_MERCAT.length - 1);
+  const iVR = rndInt(rand, 0, VARIANTS_RSC.length - 1);
+  const iVI = rndInt(rand, 0, VARIANTS_INNOVACIO.length - 1);
+  const pct = rndInt(rand, 45, 70);
+
   const p = [];
 
-  p.push(
-    `L'any 2003, un grup de socis va constituir ${emp.nom} com a ${formaJuridica} amb un capital inicial de ${capitalInici}, amb l'objectiu de dedicar-se a la fabricació i comercialització de ${emp.sector}. La seu social es troba a ${emp.ubicacio}, on l'empresa disposa d'unes instal·lacions modernes que han estat ampliades en diverses ocasions al llarg de la seva trajectòria.`
-  );
+  // P1 — Constitució i forma jurídica (barrejat amb localització i sector)
+  p.push(VARIANTS_CONSTITUCIO[iVC](emp.nom, formaJuridica, capitalInici, emp.sector, emp.ubicacio));
 
-  p.push(
-    `Actualment, ${emp.nom} compta amb una plantilla de ${treballadors} persones contractades a jornada completa i la seva facturació anual se situa entorn de ${formatearNumero(facturacio)} €. L'actiu total del darrer exercici assoleix els ${formatearNumero(activo)} €, amb un patrimoni net de ${formatearNumero(pn)} €, fet que reflecteix una estructura financera ${ratios.endeudamiento > 2 ? "on el finançament extern té un pes notable" : "amb un pes rellevant dels recursos propis"}.`
-  );
+  // P2 — Dimensió (treballadors, facturació, estructura financera)
+  p.push(VARIANTS_DIMENSIO[iVD](emp.nom, treballadors, facturacio, activo, pn, ratios));
 
-  p.push(
-    `Des dels primers exercicis, la companyia ha mantingut una vocació clara d'obertura exterior. Avui, gairebé el ${rndInt(rand, 45, 70)}% de la producció es destina a clients situats fora de les fronteres espanyoles: el principal mercat estranger és ${mercats[0]}, seguit de ${mercats[1]} i, des de fa dos anys, d'${mercats[2]}. Les negociacions comercials internacionals es gestionen directament des de la seu de ${emp.ubicacio} per un departament especialitzat de quatre persones.`
-  );
+  // P3 — Àmbit geogràfic i internacionalització
+  p.push(VARIANTS_MERCAT[iVM](emp.nom, pct, mercats[0], mercats[1], mercats[2], emp.ubicacio));
 
+  // P4 — Estratègia de creixement (Matriu d'Ansoff), barrejada amb el relat empresarial
   p.push(ansoff.paragraf(emp.nom, emp.producte));
+
+  // P5 — Forces de Porter (poder de negociació dels clients), integrat al relat
   p.push(porter.text(emp.producte));
 
-  p.push(
-    `Conscient del seu impacte en el territori on opera, ${emp.nom} publica cada any un document que recull de manera quantificada les seves actuacions socials i mediambientals: des de la reducció dels residus industrials i el consum d'energia fins a les polítiques d'igualtat i els plans de formació contínua de la plantilla. L'empresa ha alineat les seves pràctiques internes amb els objectius globals de construir infraestructures resilients i afavorir la industrialització sostenible, d'una banda, i amb els de garantir models de consum i producció responsables, de l'altra.`
-  );
+  // P6 — RSC i ODS (balanç social, codi de conducta, ODS 7/9/12)
+  p.push(VARIANTS_RSC[iVR](emp.nom));
 
-  const descFM = ratios.fm >= 0
-    ? `un fons de maniobra positiu de ${formatearNumero(ratios.fm)} €, la qual cosa indica que l'actiu corrent supera el passiu corrent i que l'empresa pot atendre les seves obligacions a curt termini sense tensions de tresoreria`
-    : `un fons de maniobra negatiu de ${formatearNumero(Math.abs(ratios.fm))} €, situació que requereix una atenció especial sobre la gestió del deute a curt termini`;
-  const descBN = pyg.BN >= 0
-    ? `un resultat net positiu de ${formatearNumero(pyg.BN)} €, senyal de rendibilitat en l'exercici`
-    : `un resultat net negatiu de ${formatearNumero(Math.abs(pyg.BN))} €, que obliga la direcció a revisar l'estructura de costos`;
-  p.push(
-    `Quant a la situació econòmica i financera de l'empresa, el balanç de situació de l'exercici revela ${descFM}. El compte de pèrdues i guanys tanca amb ${descBN}. La ràtio de solvència se situa en ${formatearNumero(ratios.solvencia)}, mentre que la de liquiditat és de ${formatearNumero(ratios.liquidez)}, paràmetres que la direcció monitoritza trimestralment per anticipar-se a possibles desequilibris financers.`
-  );
+  // P7 — Innovació: RDI, Lean Startup, PMV, Canvas o DAFO (varia cada cop)
+  p.push(VARIANTS_INNOVACIO[iVI](emp.nom, emp.producte));
 
   return p;
 }
@@ -346,42 +394,27 @@ function renderHistoria(paragrafos) {
   if (!cont) return;
   cont.innerHTML = "";
 
-  const ETIQUETES = [
-    "Forma jurídica (SA vs SL)",
-    "Dimensió de l'empresa (treballadors + facturació)",
-    "Àmbit geogràfic (local / nacional / internacional)",
-    "Estratègia creixement intern — Matriu d'Ansoff",
-    "Forces de Porter — Poder de negociació dels clients",
-    "RSC i Objectius de Desenvolupament Sostenible",
-    "Anàlisi financera (balanç + PyG)",
-  ];
+  // Índexs dels paràgrafs que fan referència directa al material PAU
+  // (tots en fan, però marquem els que contenen terminologia curricular explícita)
+  const REF_PAU = [0, 1, 2, 3, 4, 5, 6]; // tots set paràgrafs
 
-  const toggleBtn = document.createElement("button");
-  toggleBtn.className = "btn-tag-toggle";
-  toggleBtn.textContent = "Mostrar etiquetes pedagògiques";
-  let tagsVisible = false;
-  toggleBtn.addEventListener("click", () => {
-    tagsVisible = !tagsVisible;
-    cont.querySelectorAll(".etiqueta-clau").forEach((el) => {
-      el.style.display = tagsVisible ? "inline-block" : "none";
+  const btn = document.createElement("button");
+  btn.className = "btn-tag-toggle";
+  btn.textContent = "Mostrar referències al material";
+  btn.addEventListener("click", () => {
+    cont.querySelectorAll(".referencia-material").forEach((el) => {
+      el.classList.toggle("subratllat");
     });
-    toggleBtn.textContent = tagsVisible ? "Ocultar etiquetes pedagògiques" : "Mostrar etiquetes pedagògiques";
   });
-  cont.appendChild(toggleBtn);
+  cont.appendChild(btn);
 
   paragrafos.forEach((text, i) => {
     const wrapper = document.createElement("div");
-    wrapper.className = "historia-paragraf";
-
-    const tag = document.createElement("span");
-    tag.className = "etiqueta-clau";
-    tag.textContent = ETIQUETES[i] || "";
-    tag.style.display = "none";
+    wrapper.className = "historia-paragraf" + (REF_PAU.includes(i) ? " referencia-material" : "");
 
     const p = document.createElement("p");
     p.textContent = text;
 
-    wrapper.appendChild(tag);
     wrapper.appendChild(p);
     cont.appendChild(wrapper);
   });
@@ -540,20 +573,18 @@ function inicializar() {
     resultado.classList.remove("hidden");
   });
 
-  // ── Botó: Història + Balanç + PyG (tots tres, pàgina completa en vertical) ──
+  // ── Botó: Història + Balanç + PyG (tots tres) ──
   document.getElementById("btn-generar-historia").addEventListener("click", () => {
     const seed    = getSeed();
     const tamano  = tamanoSelect.value;
     const balance = generarBalance(tamano, seed);
     const pyg     = generarPyG(seed);
 
-    // Renderitzar els tres blocs
     renderHistoria(generarHistoriaEmpresa(tamano, balance, pyg));
     renderBalance(balance);
     renderPyGResum(pyg);
     renderPyGComplet(pyg);
 
-    // Mostrar els tres blocs
     ocultarTodosLosBloques();
     document.getElementById("bloc-historia").classList.remove("hidden");
     document.getElementById("bloc-balance").classList.remove("hidden");
