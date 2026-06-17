@@ -26,6 +26,7 @@ body {
   padding: 0 1.25rem;
 }
 
+/* ── Topbar ─────────────────────────────────────────────────────────────────── */
 .topbar {
   background: rgba(255,255,255,0.9);
   border-bottom: 1px solid rgba(226,232,240,0.8);
@@ -35,9 +36,40 @@ body {
   z-index: 10;
 }
 
-.topbar .container { padding: 1rem 1.25rem; }
+.topbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+}
+
+.topbar-text { flex: 1 1 auto; min-width: 0; }
+
 .topbar h1 { margin: 0; font-size: 1.5rem; color: #1f2937; }
 .subtitle { margin: 0.15rem 0 0; font-size: 0.9rem; color: var(--muted); }
+
+/* Botó SuperQuiz */
+.btn-superquiz {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--primary);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.45rem 1.1rem;
+  border-radius: 999px;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(37,99,235,0.30);
+  white-space: nowrap;
+  transition: background 0.18s ease, box-shadow 0.18s ease;
+}
+.btn-superquiz:hover {
+  background: #1d4ed8;
+  box-shadow: 0 6px 18px rgba(37,99,235,0.40);
+}
 
 main.container { padding: 1.5rem 1.25rem 2.5rem; }
 
@@ -96,7 +128,7 @@ select, input[type="number"] {
 
 .hidden { display: none !important; }
 
-/* ── Layout de resultats ────────────────────────────────────────────────────
+/* ── Layout de resultats ─────────────────────────────────────────────────────
    Cada bloc (historia, balanç, PyG) ocupa el 100% de l'amplada disponible
    i es mostra en vertical, un sota l'altre.
 ──────────────────────────────────────────────────────────────────────────── */
@@ -124,7 +156,7 @@ select, input[type="number"] {
   border-top: 1px dashed var(--border);
 }
 
-/* ── Balanç i PyG: amplada reduïda un 20% i centrats ──────────────────────── */
+/* ── Balanç i PyG: amplada reduïda un 20% i centrats ────────────────────── */
 #bloc-balance,
 #bloc-pyg {
   max-width: 80%;
@@ -134,7 +166,6 @@ select, input[type="number"] {
 
 /* ── Història ──────────────────────────────────────────────────────────────── */
 
-/* Contenidor centrat a la pantalla */
 #bloc-historia {
   display: flex;
   flex-direction: column;
@@ -150,11 +181,11 @@ select, input[type="number"] {
 .historia-empresa {
   font-size: 0.95rem;
   line-height: 1.75;
-  max-width: 72ch;          /* amplada de lectura còmoda */
+  max-width: 72ch;
   width: 100%;
-  margin: 0 auto;           /* centrat horitzontal */
-  text-align: justify;      /* text justificat */
-  hyphens: auto;            /* guions automàtics per evitar buits excessius */
+  margin: 0 auto;
+  text-align: justify;
+  hyphens: auto;
 }
 
 .historia-empresa p {
@@ -163,7 +194,6 @@ select, input[type="number"] {
   text-align: justify;
 }
 
-/* Línies referenciades al material PAU — subratllat activat pel botó */
 .referencia-material.subratllat {
   text-decoration: underline;
   text-decoration-color: #2563eb;
@@ -346,5 +376,7 @@ select, input[type="number"] {
   .buttons-row { flex-direction: column; align-items: stretch; }
   .btn-primary, .btn-secondary { flex: none; width: 100%; }
   .historia-empresa { font-size: 0.9rem; }
-  #bloc-balance, #bloc-pyg { max-width: 100%; }  /* mòbil: amplada completa */
+  #bloc-balance, #bloc-pyg { max-width: 100%; }
+  .topbar h1 { font-size: 1.1rem; }
+  .btn-superquiz { font-size: 0.78rem; padding: 0.4rem 0.8rem; }
 }
